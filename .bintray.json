@@ -18,8 +18,8 @@
 
     "files": [
         {
-            "includePattern": "build/DNA.spiral.pdf",
-            "uploadPattern": "$1-wip.pdf",
+            "includePattern": "build/book.spiral.pdf",
+            "uploadPattern": "DNA-wip.pdf",
             "matrixParams": { "override": 1 }
         }
     ],

@@ -1,0 +1,33 @@
+!! Third Party Libraries
+
+This chapter includes description of libraries not specific to "Bio" tasks, but useful for development of bioinformatics related tasks.
+
+!!! Persistency
+
+All current Pharo images includes Fuel, a fast binary serializer that defines a pickle format based on clustering similar objects. It reduces deserialization overhead compared to other approaches. It supports class shape changing (when a variable has been added, or removed, or its index changed), cyclic object graphs, serialization of several special objects like ""CompiledMethod"" (in a binary way, without compiling code) and Classes, etc. 
+
+!!! Mathematics
+
+The package "Numerical Methods" includes common numerical algorithms implemented in Smalltalk. The package library is documented in the free downloadable book [Object-Oriented Implementation of Numerical Methods. An Introduction with Smalltalk](https://github.com/SquareBracketAssociates/NumericalMethods) , which covers all the available algorithms: 
+
+- Interpolation: Lagrange, Newton, Neville, Bulirsch-Stoer, Cubic Spline.
+- Iterative algorithms
+- Integration methods: Trapeze, Simpson, Romberg.
+- Series: Infinite Series, Continued Fractions, etc.
+- Linear Algebra: Vectors, Matrices, Linear Equations, LUP decomposition, Eigenvalues and Eigenvectors.
+- Distributions: Normal, Gamma, etc.
+- Statistical Tests: Chisquare-test, F-test, T-test, Linear Regression, Maxi
+- mum Likelihood, etc.
+- Optimization: Hill Climbing, Powell, Simplex, Genetic, etc.
+
+!!! OS Communication
+
+!!!! OSProcess
+
+The package OSProcess provides access to operating system functions, including pipes and child process creation. It is implemented using pluggable primitives in a shared library for Unix or Linux, and a DLL for Windows. The Smalltalk code, including the classes which implement pluggable primitives for Unix or Win32 operating system functions, may be loaded into any Pharo or Squeak image, but the primitives are only useful on Unix and Windows systems. Placeholder classes are provided for MacOS, OS/2 and RiscOS, but are not yet implemented. 
+
+!!!! CommandShell
+
+CommandShell is a Smalltalk implementation of a command processor shell and terminal window. It is intended to behave like to a simple terminal window (like xterm) running a Unix command shell (like /bin/sh). It lacks some elements of Unix shell syntax, and does not provide terminal emulation, but it adds some nice Smalltalk enhancements such as a text editor which works in a command pipeline, and the ability to evalute Smalltalk expressions in a command pipeline with unix commands. 
+
+

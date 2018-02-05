@@ -1,16 +1,63 @@
-There is also a template system, you can find template in the folder ''support/template''.
-Some template are already written, but if you want to have your own, you had two solutions:
--edit the existing template related to the format you want to change (recommanded)
--create your own template with its own name and change used template in the Makefile
+!! Smalltalk Basics
 
-You will found some template examples in ''support/template'' folder to see how it works.
+You may evaluate scripts or code in BioSmalltalk as in most Smalltalk environments: Selecting the code, right button, and choose one of the following operations:
 
-The default template system is ''Mustache'' but if you want to use another one it is possible.
-In that case you will have to edit the makefile to use your own template system.
+- ""Print it"" (""Show it"", or ""Display it""): To print the results as a simple String next to the selected code.
+- ""Inspect it"": To open an Inspector window. You may observe and send messages over the selected object in the left pane
+- ""Explore it"": To open an Explorer window. You may expand the tree items, and send messages over the selected object. 
 
-You can also create your own ''Makefile'' rule.
-We let you know that there is a rule ''copySupport'' which copy all figures in the output directory,
-so you can use this rule when you want to.
+At least you should work with two tools. A "System Browser" and a "Workspace". The famous System Browser, Class Hierarchy Browser, or simply Browser, is the most important tool for development in Smalltalk and enables to explore and modify the categories, classes, methods in the system. Actually is so powerful that you can do more advanced actions like finding class references, perform code critics and refactorings, find method senders and implementors, execute tests, group classes, manage breakpoints, find method examples and past versions, among other actions.
 
-Output directory's default name is ''book-result'' but you can change it in the Makefile by editing the
-==OUTPUTDIRECTORY== variable
+!!! Additional References
+
+A comprehensive description of any Smalltalk system would deserve a complete book on its own. Fortunately, there are several good books devoted to describe the Smalltalk language and environment. I recommend the following ones as starting points: 
+
+- If you are very new about object technology, a ""must"" read and one of the best books is “Object Technology” (1997, ISBN: 0-201-30994-7) from David Taylor.
+- The Smalltalk Best Practices Patterns is a good book for coding conventions and style: [http://www.amazon.com/Smalltalk-Best-Practice-Patterns-Kent/dp/013476904X](http://www.amazon.com/Smalltalk-Best-Practice-Patterns-Kent/dp/013476904X)
+- There are free on-line books in the Stéphane Ducasse personal web site:
+[http://stephane.ducasse.free.fr/FreeBooks.html](http://stephane.ducasse.free.fr/FreeBooks.html)
+- Pharo Books: [http://files.pharo.org/books/](http://files.pharo.org/books/)
+
+Finally, a useful advice often done by experienced Smalltalkers is to actually experiment with the environment, make mistakes, and ask in the mailing lists or forums in case of doubt.
+
+!!! Scripting Languages versus Smalltalk
+
+{{{latex:
+\tabulinesep=1.8mm
+\begin{longtabu} to \linewidth{X[1,l,m] X[1,m]}
+\everyrow{\tabucline-}
+\caption{Comparison of coding taks} \\
+\toprule
+\textbf{Python/Perl/Ruby} & \textbf{Pharo Smalltalk} \\
+\endfirsthead
+{{\bfseries \tablename\ \thetable{}: Features}} \\
+\textbf{Python/Perl/Ruby} & \textbf{Pharo Smalltalk} \\
+\endhead
+\midrule
+Write a script (in a file) called foo.py/foo.pl/etc                           & Write a script in some environment tool (Workspace, Script Manager, etc.)     \\
+Specify a shebang line                                                        & Not necessary     \\
+Code navigation                                                               & Open the System Browser \\
+Search import modules and how to "invoke" them                                & Not necessary     \\
+Search for senders/callers of a function: Configure ctags for your language   & In a method, press the Senders button    \\
+Place your source code in directories or/and files                            & Not necessary, the snapshot system will persist your source code    \\
+Execute your program : Find a way to execute the command line interpreter/compiler specifying with your script name as input 																		  & Select any piece of valid source code and press the mouse right button, then do it or print it    \\
+\bottomrule
+\end{longtabu}
+}}}
+
+
+Usually depends of a web browser on the generated pages from cross-linking the source code and comments by an autodoc tool. This setting usually doesn't allow targeted navigation.
+
+!!! Executing Scripts
+
+You can execute scripts in .st files from command-line. Just cd into the directory where the "pharo" script is found and evaluate the following test expression to check everything is working properly:
+
+[[[
+./pharo -nodisplay Pharo.image eval "3 + 4" 
+]]]
+
+To run a script in a file you can pass the file name as argument to the image:
+
+[[[
+./pharo Pharo.image my_script.st
+]]]

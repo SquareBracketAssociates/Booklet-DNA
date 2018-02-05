@@ -1,0 +1,107 @@
+!! Accessing External Resources
+
+!!! Entrez
+
+The Entrez API is an interface for accessing to the Entrez Utilities provided by the NCBI. The following snippets provide examples to use the API:
+
+!!!! FASTA record from Protein
+
+- Input: Accession number
+- Database: Protein
+- Output: FASTA record
+[[[
+(BioEntrezClient new protein
+        term: 'NP_031402.3';
+        useWebEnv;
+        setFasta;                       
+        fetch) dumpToFileNamed: 'NP_031402.3.fasta'
+]]]
+
+!!!! SeqID record from Protein
+
+- Input: Accession number
+- Database: Protein
+- Output: SeqID
+[[[
+(BioEntrezClient new protein
+        term: 'NP_031402.3';
+        useWebEnv;
+        setSeqId;                       
+        fetch) dumpToFileNamed: 'NP_031402.3.seqid'
+]]]
+
+!!!! GenBank records from Nuccore
+
+- Input: List of UIDs
+- Database: Nuccore
+- Output: GenBank formatted file (.gb)
+[[[
+(BioEntrezClient new nuccore
+        uids: #(57240072 57240071 6273287 6273291 6273290 6273289 6273286 6273285 6273284);
+        setGb;
+        fetch) dumpToFileNamed: 'fetchNuccore3.gb'
+]]]
+
+!!!! XML records from Pubmed
+
+- Input: List of UIDs
+- Database: Pubmed
+- Output: XML
+[[[
+| result |
+result := BioEntrezClient new pubmed 
+                uids: #( 11877539 11822933 );
+                setModeXML;
+                fetch.
+result dumpToFileNamed: 'eFetch1.xml'
+]]]
+
+!!!! XML records from Protein
+
+- Input: Search terms
+- Database: Protein
+- Output: List of UIDs in XML
+[[[
+(BioEntrezClient new protein
+        term: 'insulin AND homo';
+        search) dumpToFileNamed: 'insulin AND homo_protein.xml'
+]]]
+
+
+
+!! Swiss-Prot and ExPASy
+
+
+!!! PDB
+
+Protein-Data Bank
+
+!!! PDBePISA
+
+BioSmalltalk includes an API to access the service provided by the EBI: Protein Data Bank in Europe : Proteins, Interfaces, Structures and Assemblies tool (Krissinel and Henrick, 2007). This tool can help in the  analysis of the protein–protein interfaces within structures, search for related protein structures, verify the reliability of the models interfaces, find the interactions between the ligand and receptor proteins, and other [set of related features](http://www.ebi.ac.uk/msd-srv/prot_int/pistart.html).
+
+To search inside the PDBePISA server you should provide a list of PDB codes, each one represented by 4-letter Protein Databank (PDB) identifier, as parameter of the method #pdbCodes:.
+
+Inside BioSmalltalk, hightlight the following expression and bring the contextual menu to Inspect or Explore the results:
+
+[[[
+BioPDBePISAClient new interfaces
+	pdbCodes: { '3gcb' . '1sar' };
+	fetch.
+]]]
+
+You can also download the results in the XML format provided by the PDBePISA.
+
+[[[
+(BioPDBePISAClient new interfaces
+	pdbCodes: { '3onz' . '1d66' };
+	fetch) dumpToFileNamed: 'fetchPdbEPisa_01.xml'
+]]]
+
+To further filter results, you can use the XML parser provided by BioSmalltalk. The following code includes two PDB entries, which instead of downloading directly into a file, we can parse.
+
+[[[
+(BioPDBePISAClient new interfaces
+	pdbCodes: { '3gcb' . '1sar' };
+	fetch)
+]]]

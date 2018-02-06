@@ -12,7 +12,7 @@ ${inputFile:Chapters/Chapter4/chapter4.pillar}$
 
 %!!Genomes
 %something breaks here 
-%${inputFile:Chapters/Chapter5/chapter5.pillar}$
+${inputFile:Chapters/Chapter5/chapter5.pillar}$
 
 %!!Parsing
 %${inputFile:Chapters/Chapter6/chapter6.pillar}$

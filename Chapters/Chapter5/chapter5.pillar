@@ -7,8 +7,8 @@ There are a few sites which provide access to complete sequenced genomes which a
 The BioGenomeDownloader hierarchy is a facility to download latest builds of genomes. Although downloading of any organism is supported, BioSmalltalk includes subclasses which implements methods with parameters for specific organisms. The current release of BioSmalltalk includes downloaders for:
 
 - Bos Taurus 
-- - From the UMD, Center for Bioinformatics and Computational Biology, University of Maryland. 
-- - From The Bovine Genome Sequencing Consortium.
+-- From the UMD, Center for Bioinformatics and Computational Biology, University of Maryland. 
+-- From The Bovine Genome Sequencing Consortium.
 - Gallus Gallus (International Chicken Genome Sequencing Consortium).
 - Mus Musculus (Celera Genomics and Genome Reference Consortium). 
 - Other genome downloaders could be built by just specializing very few methods.

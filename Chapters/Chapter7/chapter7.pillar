@@ -1,0 +1,59 @@
+!! Alignments
+
+Underlying sequences are in a BioAlignment are sequence based (contrary to String based). This could enable to access track information like quality score through the alignment itself, instead of maintaining multiple associated matrices. 
+
+"Creating a Multiple Sequence Alignment"
+[[[
+	align := BioAlignment new.
+	align 
+		addSequence: 'ACTGCTAGCTAG';
+		addSequence: 'ACT-CTAGCTAG';
+		addSequence: 'ACTGCTAGATAG';
+		addSequence: 'ACTGCTTGCTAG';
+		addSequence: 'ACTGCTTGATAG'.		
+]]]
+
+
+
+!! BLAST
+
+Provided by the National Center for Biotechnology Information (NCBI), BLAST is a sequence homology search program that finds all the sequences that match a particular given sequence from a database. The NCBI-GenBank database contains over 150 billion nucleotide bases as of June 2013, and doubling its contents approximately every 18 months. It is considered the most fundamental tool in bioinformatics today, although there are many other similar programs for different cases. In BioSmalltalk you may query programmatically a BLAST at NCBI with the following parameters:
+
+- Query the nucleotide (nr) database.
+- Use an "unknown" DNA sequence.
+- Get only the first 200 hits.
+- Filter query sequence with low compositional complexity.
+- Use the default expect value (10).
+- Use the BLASTN programs to search nucleotide databases using a nucleotide query.
+- Get the results in XML for further querying
+
+which is translated as:
+
+"Make a BLAST from BioSmalltalk"
+[[[
+| search |
+search := BioNCBIWebBlastWrapper new nucleotide
+		query: 'TCGAAATAACGCGTGTTCTCAACGCGGTCGCGCAGATGCCTTTGCTCATC
+AGATGCGACCGCAACCACGTCCGCCGCCTTGTTCGCCGTCCCCGTGCCTC
+AACCACCACCACGGTGTCGTCTTCCCCGAACGCGTCCCGGTCAGCCAGCC
+TCCACGCGCCGCGCGCGCGGAGTGCCCATTCGGGCCGCAGCTGCGACGGT
+GCCGCTCAGATTCTGTGTGGCAGGCGCGTGTTGGAGTCTAAA';
+		hitListSize: 200;
+		filterLowComplexity;
+		expectValue: 10;
+		blastn;
+		formatTypeXML;
+		fetch.
+]]]
+
+
+Now the "search" object contains a BioWebBlastResult. The following line write the XML contents to a timestamped file in the directory where the .image file is located:
+
+[[[ 
+search dumpToFileNamed: 'blast-' , BioObject currentSeconds , '.xml'.		
+]]]
+
+''Note: When the Transcript is opened (Tools --> Transcript) you may view a detailed log of message sends.''
+
+
+

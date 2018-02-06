@@ -1,0 +1,92 @@
+!! Population Genetics
+
+Population genetics is the study of genetic variation, specifically the allele frequency changes, in a population, as the population is subject to the four main evolutionary processes: natural selection, genetic drift, mutation and gene flow. It also takes into account the factors of recombination, population subdivision and population structure.
+
+!!! Genotypes
+
+A genotype is composed of two alleles and a position in a chromosome. It can be simply instantiated using Character objects for the alleles and a ""BioLocus"" for its position, as follows: 
+
+[[[
+BioGenotype new
+    alleleA: $A;
+    alleleB: $C;
+    locus: (BioLocus new
+        name: 'BM1818';  
+        chrLocation: '2';
+        yourself);
+    yourself.
+]]]
+
+A genotype collection is a ""Collection"" of genotype objects (instances of BioGenotype). It can be instantiated by providing a ""String"" of alleles delimited by spaces, as:
+
+[[[
+BioGenotypeCollection
+    fromSpacedAlleles: 'T T C C C T C C G A T C A G C C A A A G T C C C T T C C C C C C G G A A A A T T T T A A A A T T A A G A G G C C T C C C C C T T A A C C 0 0 C C A A C C T T G G T T C C G G C A T T T T C T C T T C 0 0 0 0 C C A A T T A A C C A A C C A A C C G G A G T C C C A A C C T T C C T T A A C C C C A A T T A A T C A G C T C C G G C C C C T T T T G G T T T T G G T T T T G'.
+]]]
+
+Sometimes genotypes are delimited by tab, with a space between alleles (common spacing format provided by the PLINK software). In such case, #fromTabbedAlleles: can be used:  
+
+[[[
+BioGenotypeCollection
+    fromTabbedAlleles: 'T T C C C T C C G A T C A G C C A A A G T C C C T T C C C C C C G G A A A A T T T T A A A A T T A A G A G G C C T C C C C C T T A A C C 0 0 C C A A C C T T G G T T C C G G C A T T T T C T C T T C 0 0 0 0 C C A A T T A A C C A A C C A A C C G G A G T C C C A A C C T T C C T T A A C C C C A A T T A A T C A G C T C C G G C C C C T T T T G G T T T T G G T T T T G'.
+]]]
+
+Genotype collections can be added to a BioPopulation contained in samples:
+
+[[[
+| genotypesA genotypesB |
+genotypesA := BioGenotypeCollection
+    fromSpacedAlleles: 'T T C C C T C C G A T C A G C C A A A G T C C C T T C C C C C C G G A A A A T T T T A A A A T T A A G A G G C C T C C C C C T T A A C C 0 0 C C A A C C T T G G T T C C G G C A T T T T C T C T T C 0 0 0 0 C C A A T T A A C C A A C C A A C C G G A G T C C C A A C C T T C C T T A A C C C C A A T T A A T C A G C T C C G G C C C C T T T T G G T T T T G G T T T T G'.
+
+genotypesB := BioGenotypeCollection
+    fromSpacedAlleles: 'T T C A C T C C G A T C A G C C A A A G T C C C T T C C C C C C G G A A A A T T T T A A A A T T A A G A G G C C T C C C C C T T A A C C 0 0 C C A G C C T T G G T T C C G G C A G T T T C T C T T C 0 0 0 0 C C A A T T A A C C A A C C A A C C G G A G T C C C A A C C T T C C T T A A C C C C A A T T A A T C A G C T C C G G C C C C T T T T G G T T T T G G T T T T G'.
+
+BioPopulation new
+	name: 'PopulationA';
+	addBioSample: (BioSample new markers: genotypesA; yourself);
+	addBioSample: (BioSample new markers: genotypesB; yourself);
+	yourself
+]]]
+
+!!!! Organism Names
+
+BioSmalltalk includes lists of common organism names, which can be accessed by:
+
+[[[
+BioSpeciesLists commonAnimalSpecies.
+BioSpeciesLists faoSpecies.
+]]]
+
+You may also configure a "current" species list, for your particular application.
+
+[[[
+BioSpeciesLists currentSpeciesList
+]]]
+
+!!!! Population Repository Model
+
+""BioSpecies"" serves as a global repository for organism populations. Each organism is represented by a ""BioPopRepository"". In turn, each ""BioPopRepository"" stores repository versions, instances of ""BioPopRepositoryVersion"", which has the actual varieties (read: breeds, models, strains, etc. depending on your organism taxonomy vocabulary). This group of objects altogether collaborates to build a versioned repository of organism names, synonymous and occurrences. They are ""not"" inteded to store particular organisms for which the class ""BioSample"" is avaliable.
+
+You may start inspecting the repository model by evaluating:
+
+[[[
+BioSpecies repositories.
+]]]
+
+Some repositories could be already populated with organisms: 
+
+[[[
+BioSpecies populatedRepositories.
+]]]
+
+To access a specific organism repository, you may send #repositoryVersions as shown below:
+
+[[[
+(BioSpecies repositoryFor: 'Cattle') repositoryVersions.
+]]]
+
+And accessing a particular repository version for an organism (the following expression works in PhyloclassTalk, a phylogeography environment based in BioSmalltalk) :
+
+[[[
+(BioSpecies repositoryFor: 'Cattle') repositoryVersionAt: 'Mason'.
+]]]

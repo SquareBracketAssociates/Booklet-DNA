@@ -1,0 +1,248 @@
+!! Workign with Sequences
+
+!!! Sequence Records
+
+""BioSeqRecord"" stores a sequence with additional information, which could be "annotations" or sequence features. You can think of a "Sequence Record" like a wrapper for a ""BioSequence"" to attach additional information to a sequence. Equivalent classes in other Bio tookits are Bio::Sequence for BioRuby and Bio.SeqRecord for Biopython. In a sequence record usually the #id method is used to store an unique identifier such as the Accession Number (a ""BioAccession""), and the #name is used to hold a ""String"" with a more descriptive name, such as clone name. The #description method is used to set up a ""String"" with a textual, i.e. human readable, description of the sequence.
+
+A sequence record responds to the #annotations message to retrieve the sequence annotations. Such message will answer a Smalltalk ""Dictionary"", however, if you need to customize the annotations you may subclass ""BioSeqRecord"" and override #annotationsClass method to answer a different kind of ""Dictionary"". 
+
+Creating a ""BioSeqRecord"":
+[[[
+| sequence |
+sequence := BioSequence newProtein: 'mdstnvrsgmksrkkkpkttvidddddcmtcsacqslkllndfas'.
+(BioSeqRecord new: sequence)
+		id: 'P20994.1';
+		name: 'P20994';
+		description: 'Protein A19';
+		dbxRefs: #('Pfam:PF05077' 'InterPro:IPR007769' 'DIP:2186N');
+		annotationAt: #note put: 'A simple note';
+		yourself.
+]]]
+
+Mostly you would want to iterate over a collection of sequences with metadata information, and populate Sequence Records with annotations and features. Some Bio* libraries use to parse a GenBank file (.gbk) which is a textual format intended to be read by humans (even when there exists for years programming utilities like Entrez E-Utils to retrieve information in a machine-readable format).  One format which is easier to parse, is the XML format, and the following example retrieves a XML-formatted file with annotations, which are then stored in BioSeqRecord objects:
+
+"Work in progress"
+[[[
+'seq_records.xml'
+]]]
+
+To access sequence features, the following methods are available:
+
+- sequenceFeatures, sequenceFeatures: Answer or set a ""Collection"" the receiver's sequence ""BioSequenceFeature""s.
+- addSeqFeature: Add a ""BioSequenceFeature"" passed as parameter, to the receiver's sequence.
+- removeSeqFeature: Remove a ""BioSequenceFeature"" passed as parameter, to the receiver's sequence.
+
+Simirarily, to access sequence annotations and per-letter annotations, the following methods are used:
+
+- annotations, annotations: Answer or set a ""Collection"" the receiver's sequence ""BioSeqAnnotations""s.
+- annotationsAt:put: At a key first parameter, add a ""Collection"" with the receiver's annotations for the sequence.
+- removeAnnotations : Completely remove all the annotations from the receiver.
+- removeAnnotationsAt: Remove annotation passed as parameter from the receiver.
+- letterAnnotations, letterAnnotations: Answer or set a ""Collection"" with the receiver's per-letter annotations.
+- letterAnnotationsAt:put: At a key first parameter, add a value ""Collection"" with the receiver's per-letter annotation for the sequence. The collection passed as parameter must match the length of the receiver's sequence length.
+- removeLetterAnnotations : Completely remove all the letter annotations from the receiver.
+
+!! Sequence Types
+
+!!! Repetitive sequences
+
+There are several types of [repetitive DNA sequences](https://en.wikipedia.org/wiki/Repeated_sequence_%28DNA%29), and multiple ways of classify them, for example according to their function, their processes or structure. They are often seen as mobile genetic elements which have been replicated in a genome by inserting new copies of themselves into different positions. Some types of repetitive DNA segments, also known as "DNA fingerprints", are useful for identifying individuals in crime forensics, as genetic markers in linkage analysis and population studies.
+
+The root class for accessing repetitive sequences is ""BioRepeatSequence"", and the following subsections explore the possibilities of BioSmalltalk with repetitive sequences. In the next sections, in sequences considered to be repeated, the repeat units are called "motif".
+
+!!!! Interspersed repeats. 
+
+Also known as Transposon-Derived Repeats, interspersed repeats can be defined as repetitive sequences dispersed throughout the genome as single units flanked by unique sequence. The could be divided between "Transposable DNA" and "Non-Transposable DNA". At the same time the Transposable DNA, could be subdivided in "DNA transposons" and "Retrotransposons" both of them are going to be described in the context of usage with the BioSmalltalk library.
+
+!!!!! DNA transposons
+
+Also referred as "fossil" DNA elements (as far it is known, DNA transposons are not active anymore in humans), they are the simplest repetitive sequences and represent mobile DNA elements that transpose to new sites directly as DNA. They encode for an enzyme called "transposase" in a process named conservative transposition. An example of an actual DNA transposon [found](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC326035/pdf/nar00357-0345.pdf) in "c.elegans" in 1983, is this sequence of 1610 bp:
+
+[[[
+BioDNATransposon new
+	name: 'C.elegans Tc1 transposable element';
+	motif: 'CAGTGCTGGCCAAAAAGATATCCACTTTTGGTTTTTTGTGTGTAACTTTTTTCTCAAGCATCCATTTGACTTGAA
+TTTTTCCGTGTGCATAAAGCGAAATGTTACGCAAATTTGCGGACCAAACATTACATGATTATCGATTTTTTCTGAATTTTATTTCAA
+TTTTTTGATTTTTTCGTTTTTCCAATTTTCATTATTTTTTTTGAATTATCAATAAAACGCACTCTGTTTGTTGCACTGGATTTGTTT
+GGTTGATAAATTATTTTTAAGGTATGGTAAAATCTGTTGGGTGTAAAAATCTTTCCTTGGACGTCAAGAAAGCCATTGTAGCTGGCT
+TCGAACAAGGAATACCCACGAAAAGCTCGCGCTGCAAATTCAACGTTCTCCGTCGACTATTTGGAAAGTAATCAAGAAGTACCAAAC
+TGAGGTGAGTTCGAAAAATATTATTTTTTAATAATAAATGTTTAGAAATCCGTCGCTTTGAGAATCTCGCCCGGCAGGCCTCGAGTG
+ACAACCCATAGGATGGATCGCAACATCCTCCGATCAGCAAGAGAAGATCCGCATAGGACCGCCACGGATATTCAAATGATTATAAGT
+TCTCCAAATGAACCTGTACCAAGTAAACGAACTGTTCGTCGACGTTTACAGCAAGCAGGCTACACGGACGAAAGCCAGTCAAGAAAC
+CGTTCATCAGTAAGAAAAATCGCATGGCTCGAGTTGCGTGGGCAAGCGCATCTTCGTTGGGGACGTCAGGAATGGGCTAACACATCT
+GGTCTGACGAAGCAATTCATTTGTTCGGGAGTGATGGAAATTCCTGGGTACGTCGTCCTGTTGGCTCTAGGTACTCTCCAAAGTATC
+AATGCCCAACCGTTAAGCATGGAGGTGGGAGCGTCATGGTGTGGGGTGCTTCACCAGCACTTCCATGGGCCCACTAAGAGATCCAAA
+CATTATGGATCGTTTTCAATACGAAAACATCTTTGAAACTACAATGCGACCCTGGGCACTTCAAAATGTGGGCCGTGGCTTCGTGTT
+TCAGCAGGATAACGATCCTAGCATACTTCTCTTCATGTGCGTTCATGGTTTCAACGTCGTCATGTGCATTTGCTCGATTGGCCAGTC
+AGTCTCCGGACTTGATCCATAGAGCATTTGTGGGAAGGTTGGJUAGCGTCTTGGAGGTATTCGGGCTTCAAATGCAGATGCCAAATT
+CAACCAGTTGGAAAACGCTTGGAAAGCTATCCCCATGTCAGTTATTCACAAGCTGATCGACTCGATGCCACGTCGTTGTCAAGCTGT
+TATTGATGCAAACGGATACGCGACAAAGTATTAAGCATAATTATGTTGTTTTTAAATCCAATTGCTCATATTCCGGTACTTTAATTG
+TCATTTCCTTGCAACCTCGGTTTTTTCAATATTTCTAGTTTTTCGATTTTGAATTTTTCTGAAGTTTTTTCAAAATCTGTTGAACAT
+TTTTGATGAATATTGTGTTTTTAGATTTTGTGAACACTGTGGTGAAGTTTCAAAACAAATAACCACTTAGAAAAAGTTACACACAAA
+AAACCAAAAGTGGATATCTTTTGGCCAGCACTG';
+	repeats: 30 " Bristol genome "
+	yourself.
+]]]
+
+!!!! Tandem repeat sequences
+
+If the copies of a sequence motif lie adjacent to each other in a block, or an array, we are speaking about ""tandem repeats"". There are three types of Tandem Repeat DNA or "Satellite DNA": 
+
+- Common "Satellite DNA"
+- Microsatellites (or STR) 
+- Minisatellites.
+
+Both Minisatellites and STR's are also called VNTRs because the number of repeats in a given satellite varies among individuals.
+
+!!!!! Microsatellites 
+
+Also known as STR (Short Tandem Repeats) or SSR (Simple Sequence Repeats), microsatellites are nuclear DNA sequences with fewer than 5 base pairs. In BioSmalltalk we use the microsatellite definition at the US National Library of Medicine Medical Subject Headings (MeSH) considering a STR sequence to be from 2 to 5 base pairs long. STRs are used as genetic markers and population studies, to study gene duplication or deletion.
+
+Microsatellites can be classified in several ways, for example by their repetition pattern (or motif type):
+
+- Perfect: Uninterrupted repeats: ----TATATATA-----
+- Imperfect: Interrupted by non-repeat nucleotides: ----TATATA--TATATA----TATA
+- Compound: Two or more STRs are found adjacent to one another: ---AGAGAGTAGATAGATAGA---
+- Complex: ----GAGAGA----AATAATAATAAT---
+
+And also could be classified also by the number of base pairs:
+
+- Mono-nucleotide: AAAAAAA
+- Di-nucleotides: CACACACA
+- Tri-nucleotides: TTATTATTATTA
+- Tetra-nucleotides: GATAGATAGATA
+- Penta-nucleotides: GTCAAGTCAAGTCAAGTCAA
+- Hexa-nucleotides: ACGGTAACGGTAACGGTA
+
+The following expression creates a Microsatellite sequence of 2 base pairs and 5 repeat motif, and prints its representation as an expanded sequence:
+
+[[[
+(BioSTRSequence new	
+	motif: 'AT';
+	repeats: 5;
+	yourself) asString.
+]]]
+
+Setting a motif also performs a range check. If the provided motif size is fewer or larger than the allowed by the class, an exception is raised.
+ 
+One can also create an instance of a Microsatellite by writing as a String:
+
+[[[
+'(AT)5' asBioSTRSequence
+]]]
+
+!!!!! Minisatellites
+
+A minisatellite is a DNA region (or locus) made up of short repeated sequences of at least 10 base pairs, according to the US National Library of Medicine Medical Subject Headings (MeSH). Minisatellites share much of the same properties as Microsatellites, and could be instantiated using a similar pattern:
+
+[[[
+BioMinisatellite new 
+	motif: 'TGCGCCATTGTAGCCA';
+	repeats: 3;
+	yourself.
+]]]
+
+!!!!! Satellite DNA 
+
+Classical satellite DNA consists of repeats larger than minisatellites, with sizes between 100 and 6500 base pairs. The class to access satellite DNA is ""BioSatelliteSequence"".
+
+!!!! Segmental duplications
+
+Segmental duplications are blocks which may consist of 1000 kb to 200,000 kb of nucleotide pairs that are also present at two or more sites in the genome. Specifically in a chromosome (intrachromosomal) or another chromosome (interchromosomal), usually in subtelomeric regions.
+
+"Work in progress"
+
+
+!!! Panels of Markers
+
+Panels or markers are used for routine use in species parentage testing and identification. BioSmalltalk provide classes for accessing information about recommended panels of markers. The root class for the hierarchy of panels is ""BioPanel"". Subclasses implements specific panels including class methods for particular species. For example the class ""BioFAOPanel"" is used to access a panel of loci recommended by the "Food and Agriculture Organization of the United Nations (FAO)" for genetic studies of domestic animals. Also a class for the panel marker information provided by the "International Society for Animal Genetics (ISAG)" is available in the class ""BioISAGPanel"". 
+
+The markers information could be accessed using the following methods: 
+
+[[[
+BioFAOPanel markerAlleleRangesForCattle.
+BioISAGPanel markerAlleleRangesForCattle.
+]]]
+
+answering a ""Collection"" of ""BioLocus"", each one representing a position in a chromosomal location.
+
+The marker allele ranges along with its positions in both cases could be accessed as:
+
+[[[
+BioFAOPanel markerAlleleRangesForCattle.
+BioISAGPanel markerAlleleRangesForCattle.
+]]]
+
+Each panel should implement the method #markersForSpecies, providing a ""Dictionary"" of names of supported species, with its associated method. Also each class provides a method for determining which types of markers (STR, Minisatellite, etc.) are supported by the panel. For example display the markers available for the ISAG Panel answer its marker associated class:
+
+[[[
+BioISAGPanel supportedMarkerTypes " #(#BioSTRSequence) "
+]]]
+
+!!!! Microsatellites and Minisatellites Locus
+
+BioSmalltalk can use sequences with locis through the ""BioLocus"" class which is used to represent "static" or unvariable information about a microsatellite or minisatellite. A locus is used by ""BioSTRSequence"" or ""BioMinisatelliteSequence"" respectively. In the following examples we are using as reference the Cattle STR information accessible at [http://www.cstl.nist.gov/biotech/strbase/cattleSTRs.htm](http://www.cstl.nist.gov/biotech/strbase/cattleSTRs.htm). Specifically we are going to set up the BM1818 loci through code. A microsatellite locus can have a simple or a compound repeat structure. You can set this with the proper message sends:
+
+[[[
+BioLocus
+	name: 'BM1818';
+	chrLocation: 'D23S21';
+	beSimpleRepeat;
+	yourself
+]]]
+
+
+
+!!! Reading and Writing Sequences
+
+
+
+
+!!!! Reading FASTA records
+
+The following script count letters for each fasta record in the 'Fasta_example_1.fa' file included in the BioSmalltalk distribution. The file contains multiple fasta records which are parsed and iterated collecting the numbers of letters for each record.
+
+[[[ 
+| mFasta fPath |
+
+fPath := BioObject testFilesFullDirectoryName , 'Fasta_example_1.fa'.
+mFasta := BioParser parseMultiFasta: (BioFASTAFile on: fPath) contents.
+mFasta collect: #occurrencesOfLetters
+]]]
+
+And of course the output is not nice for the human eye:
+
+[[[ 
+ an OrderedCollection(a Dictionary($A->24 $C->18 $G->25 $T->23 ) a Dictionary($A->33 $C->30 $G->23 $T->34 ) a Dictionary($A->25 $C->30 $G->15 $T->39 ) a Dictionary($A->17 $C->9 $G->19 $T->15 ) a Dictionary($A->26 $C->17 $G->36 $T->41 ) a Dictionary($A->8 $C->4 $G->11 $T->31 ) a Dictionary($A->31 $C->16 $G->17 $T->22 ) a Dictionary($A->16 $C->14 $G->15 $T->25 ) a Dictionary($A->14 $C->20 $G->11 $T->21 ) a Dictionary($A->20 $C->29 $G->25 $T->41 ) a Dictionary($A->12 $C->14 $G->8 $T->26 ) a Dictionary($A->26 $C->8 $G->11 $T->24 ) a Dictionary($A->36 $C->37 $G->16 $T->36 ) a Dictionary($A->30 $C->30 $G->33 $T->27 ) a Dictionary($A->14 $C->11 $G->13 $T->20 ) a Dictionary($A->34 $C->31 $G->20 $T->27 ) a Dictionary($A->23 $C->31 $G->29 $T->37 ) a Dictionary($A->30 $C->42 $G->25 $T->31 ) a Dictionary($A->7 $C->23 $G->5 $T->18 ) a Dictionary($A->15 $C->28 $G->6 $T->18 ) a Dictionary($A->23 $C->44 $G->12 $T->37 ))
+]]]
+
+Suppose we want to display the output in CSV format. Each object could be formatted for CSV by implementing #outputAsCsvTo: aStream. Then modifying the script:
+
+[[[ 
+| mFasta filePath |
+
+filePath := BioObject testFilesFullDirectoryName , 'Fasta_example_1.fa'.
+mFasta := BioParser parseMultiFasta: (BioFASTAFile on: filePath) contents.
+BioCSVFormatter new exportFrom: (mFasta collect: #occurrencesOfLetters).
+]]]
+
+It is possible to get a timestamped file like "CSVOutput3536647736.csv" with contents like this:
+
+[[[ 
+A;24
+G;25
+C;18
+T;23
+
+A;33
+G;23
+C;30
+T;34
+
+A;25
+G;15
+C;30
+T;39
+
+...
+]]]

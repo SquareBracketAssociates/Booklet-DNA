@@ -1,0 +1,48 @@
+!!! Genomes
+
+!!!! Downloading Genomes
+
+There are a few sites which provide access to complete sequenced genomes which are: NCBI, Ensembl, UCSC and JGI. BioSmalltalk provides an application programming interface to easily download genomes regardless of underlying changes in each of those web sites.
+
+The BioGenomeDownloader hierarchy is a facility to download latest builds of genomes. Although downloading of any organism is supported, BioSmalltalk includes subclasses which implements methods with parameters for specific organisms. The current release of BioSmalltalk includes downloaders for:
+
+- Bos Taurus 
+- - From the UMD, Center for Bioinformatics and Computational Biology, University of Maryland. 
+- - From The Bovine Genome Sequencing Consortium.
+- Gallus Gallus (International Chicken Genome Sequencing Consortium).
+- Mus Musculus (Celera Genomics and Genome Reference Consortium). 
+- Other genome downloaders could be built by just specializing very few methods.
+
+As downloading whole chromosomes or genomes is usually a long process, all downloads are performed in a background process inside the virtual image. Results are downloaded by default in the directory where the virtual .image and .changes files are located. You may configure which file formats to download by sending the following messages:
+
+- setDownloadASN1 : ASN.1 format files
+- setDownloadFasta : FASTA format files
+- setDownloadGBK : GenBank flat file format (annotation + sequence)
+- setDownloadGBS : GenBank summary file format (annotation only)
+- setDownloadMFA : Masked FASTA file format
+
+An example to download "Bos Taurus" chromosomes from 20 to 24 follows:
+
+[[[
+BioBTauUMD new downloadChromosomes: (20 to: 24).
+]]]
+
+To download the whole entire genome for "Mus musculus" you could use the following expression:
+
+[[[
+BioMMusculusGRCm downloadAllChromosomes.
+]]]
+
+Downloading of any organisms is supported by setting respective parameters (for which you should connect to the FTP site and observe the directory and file names) : 
+
+[[[
+BioGenomeDownloader new
+	setDownloadFasta;
+	organismName: 'Monodelphis_domestica';
+	version: '5';
+	fileListPrefix: 'mdm_ref_MonDom';
+	beChrFileNotZeroPrefixed;
+	downloadChromosomes: (7 to: 8).`
+]]]
+
+Besides the download progress bar, progress could also be monitorized through the Process Browser:

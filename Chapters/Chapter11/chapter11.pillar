@@ -1,0 +1,89 @@
+!! Graphics
+
+Graphics are built and rendered using the [Roassal agile visualization engine](http://www.objectprofile.com), which is already installed in the BioPharo distribution. The Roassal engine includes a large set of examples using short Smalltalk expressions.
+
+!!! DotPlots
+
+A simple visualization for the comparison of two sequences (or one sequence against itself) is [DotPlot](https://en.wikipedia.org/wiki/Dot_plot_%28bioinformatics%29) , which provides an overview of the extent of similarity between sequences without diving into details. DotPlots operates by projecting two sequences to be compared along the horizontal and vertical axis of a Matrix. DotPlots requires three main parameters:
+
+- A "Word Size", which is a ""Number"" representing the length of the identical polynucleotide or polypeptide that must be found in both sequences in order to generate a dot on the chart. The bigger the word size, the lower is the probability that the same segment is present in both sequences. 
+- A "Scoring Scheme", specified as a ""Matrix"". The simplest scoring scheme is the Identity Matrix, but others can be used, for example the EMBOSS DNA scoring matrix. Other extended matrix is used when sequences contain ambiguity codes, or using proteins.
+- A "Threshold" or "cut-off score".
+
+When plotting mummer output, it is necessary to use the lengths of the input sequences to set the plot ranges, otherwise the plot will be automatically scaled around the minimum and maximum data points
+
+Any character or symbol that does not belong to the [a-zA-Z] set is ignored. 
+
+
+"Drawing a 2D DotPlot with two random sequences"
+[[[
+BioRTDotPlot 
+	x: BioSequence atRandom y: BioSequence atRandom;
+	window: 3;
+	threshold: 2;
+	open.
+]]]
+
+
+"Drawing a 2D DotPlot for single analysis (identify repeats in a sequence)"
+[[[
+BioRTDotPlot
+        sequence: BioSequence atRandom;
+        window: 3;
+        threshold: 2;
+        open.
+	open.
+]]]
+
+
+
+!!! Bar Charts
+
+"Under construction, please contact mailing list to collaborate."
+
+
+
+!!! Histograms
+
+Histograms are frequently used to get an overview of quantitative distributions. Examples where histograms are applied are: Distribution of codon usage, sequence lengths distribution, etc.
+
+"Drawing a histogram of a FASTA file with multiple sequences"
+
+[[[
+(BioParser parseMultiFastaFile: BioObject testFilesDirectoryName asFileReference / 'ls_orchid.fasta') 
+	plotHistogramBins: 20 
+	xAxisLabel: 'Sequence lengths (bp)'
+	yAxisLabel: 'Count' 
+	color: Color red
+]]]
+
+
+
+!!! Widgets
+
+BioSmalltalk includes widgets to provide user interfaces. These utilities are small re-usable windows which could be easily integrated into your applications. 
+
+!!!! Chromosome Selection
+
+A small utility to select organisms and their chromosomes for posterior analysis. Each organism has already configured their corresponding list of chromosomes.
+
+[[[
+BioChrSelector open.
+]]]
+
+![Selecting MAP file](images\BioCHR_Selector_1.jpg){ width=75% }
+
+
+
+!!!! CSV Explorer
+
+The BioCSVExplorer class builds a widget that allow users to visually explore a CSV file and import its contents to the image.
+
+"Work in progress"
+
+
+!!!! Matrix Explorer
+
+"Work in progress"
+
+

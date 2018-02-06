@@ -3,11 +3,8 @@
 
 ${inputFile:Chapters/Chapter1/chapter1.pillar}$
 
-!!Smalltalk Basics
 
 ${inputFile:Chapters/Chapter2/chapter2.pillar}$
-
-!!Bioinformatics with BioSmalltalk
 
 %${inputFile:Chapters/Chapter3/chapter3.pillar}$
 

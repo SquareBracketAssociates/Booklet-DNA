@@ -1,5 +1,3 @@
-!BioSmalltalk
-
 
 ${inputFile:Chapters/Chapter1/chapter1.pillar}$
 
@@ -10,9 +8,10 @@ ${inputFile:Chapters/Chapter2/chapter2.pillar}$
 ${inputFile:Chapters/Chapter3/chapter3.pillar}$
 
 %!!Working with Sequences
-%${inputFile:Chapters/Chapter4/chapter4.pillar}$
+${inputFile:Chapters/Chapter4/chapter4.pillar}$
 
 %!!Genomes
+%something breaks here 
 %${inputFile:Chapters/Chapter5/chapter5.pillar}$
 
 %!!Parsing

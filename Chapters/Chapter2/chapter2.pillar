@@ -12,11 +12,11 @@ At least you should work with two tools. A "System Browser" and a "Workspace". T
 
 A comprehensive description of any Smalltalk system would deserve a complete book on its own. Fortunately, there are several good books devoted to describe the Smalltalk language and environment. I recommend the following ones as starting points: 
 
+- Pharo Books: *http://books.pharo.org/>http://books.pharo.org/*. In Pharo by Example you can find a nice chapter on the Pharo syntax.
 - If you are very new about object technology, a ""must"" read and one of the best books is “Object Technology” (1997, ISBN: 0-201-30994-7) from David Taylor.
-- The Smalltalk Best Practices Patterns is a good book for coding conventions and style: [http://www.amazon.com/Smalltalk-Best-Practice-Patterns-Kent/dp/013476904X](http://www.amazon.com/Smalltalk-Best-Practice-Patterns-Kent/dp/013476904X)
-- There are free on-line books in the Stéphane Ducasse personal web site:
-[http://stephane.ducasse.free.fr/FreeBooks.html](http://stephane.ducasse.free.fr/FreeBooks.html)
-- Pharo Books: [http://books.pharo.org/](http://books.pharo.org/)
+- The Smalltalk Best Practices Patterns is a good book for coding conventions and style: *http://www.amazon.com/Smalltalk-Best-Practice-Patterns-Kent/dp/013476904X>http://www.amazon.com/Smalltalk-Best-Practice-Patterns-Kent/dp/013476904X*
+- There are free on-line books in the Stéphane Ducasse personal web site: *http://stephane.ducasse.free.fr/FreeBooks.html>http://stephane.ducasse.free.fr/FreeBooks.html*
+
 
 Finally, a useful advice often done by experienced Smalltalkers is to actually experiment with the environment, make mistakes, and ask in the mailing lists or forums in case of doubt.
 

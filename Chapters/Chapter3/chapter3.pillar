@@ -1,4 +1,5 @@
 !! Bioinformatics with BioSmalltalk
+@cha:biosmalltalk
 
 Developing and using Object-Oriented technology in BioSmalltalk is about finding your objects of interest in the (virtual) image. Think about the virtual image, or simply the image, as a snapshot of the system current state. 
 

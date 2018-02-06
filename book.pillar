@@ -3,44 +3,37 @@
 
 ${inputFile:Chapters/Chapter1/chapter1.pillar}$
 
-
+%!!Smalltalk Basics
 ${inputFile:Chapters/Chapter2/chapter2.pillar}$
+
+%!!Bioinformatics with BioSmalltalk
 
 %${inputFile:Chapters/Chapter3/chapter3.pillar}$
 
-!!Working with Sequences
-
+%!!Working with Sequences
 %${inputFile:Chapters/Chapter4/chapter4.pillar}$
 
-!!Genomes
-
+%!!Genomes
 %${inputFile:Chapters/Chapter5/chapter5.pillar}$
 
-!!Parsing
-
+%!!Parsing
 %${inputFile:Chapters/Chapter6/chapter6.pillar}$
 
-!!Alignments
-
+%!!Alignments
 %${inputFile:Chapters/Chapter7/chapter7.pillar}$
 
-!!Accessing External Resources
-
+%!!Accessing External Resources
 %${inputFile:Chapters/Chapter8/chapter8.pillar}$
 
-!!Population Genetics
-
+%!!Population Genetics
 %${inputFile:Chapters/Chapter9/chapter9.pillar}$
 
-!!Wrappers
-
+%!!Wrappers
 %${inputFile:Chapters/Chapter10/chapter10.pillar}$
 
-!!Graphics
-
+%!!Graphics
 %${inputFile:Chapters/Chapter11/chapter11.pillar}$
 
-!!Third Party Libraries
-
+%!!Third Party Libraries
 %${inputFile:Chapters/Chapter12/chapter12.pillar}$
 

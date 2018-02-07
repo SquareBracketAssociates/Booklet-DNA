@@ -4,7 +4,7 @@
 
 There are a few sites which provide access to complete sequenced genomes which are: NCBI, Ensembl, UCSC and JGI. BioSmalltalk provides an application programming interface to easily download genomes regardless of underlying changes in each of those web sites.
 
-The BioGenomeDownloader hierarchy is a facility to download latest builds of genomes. Although downloading of any organism is supported, BioSmalltalk includes subclasses which implements methods with parameters for specific organisms. The current release of BioSmalltalk includes downloaders for:
+The ==BioGenomeDownloader== hierarchy is a facility to download latest builds of genomes. Although downloading of any organism is supported, BioSmalltalk includes subclasses which implements methods with parameters for specific organisms. The current release of BioSmalltalk includes downloaders for:
 
 - Bos Taurus 
 -- From the UMD, Center for Bioinformatics and Computational Biology, University of Maryland. 
@@ -17,7 +17,7 @@ As downloading whole chromosomes or genomes is usually a long process, all downl
 
 - setDownloadASN1 : ASN.1 format files
 - setDownloadFasta : FASTA format files
-- setDownloadGBK : GenBank flat file format (annotation + sequence)
+- setDownloadGBK : GenBank flat file format (annotation and sequence)
 - setDownloadGBS : GenBank summary file format (annotation only)
 - setDownloadMFA : Masked FASTA file format
 

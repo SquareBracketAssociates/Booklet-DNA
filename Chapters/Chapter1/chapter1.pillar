@@ -10,6 +10,7 @@ If you feel that you can contribute to ""BioSmalltalk"" development, please do n
 
 !!! Installation
 
+You can download the latest release of BioSmalltalk at *http://biosmalltalk.github.io/web/*
 BioSmalltalk is currently implemented in Pharo, a Smalltalk dialect. It is distributed in several forms depending of the target platform:
 
 - For Microsoft Windows as a .exe installer.

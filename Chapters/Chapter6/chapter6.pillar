@@ -3,9 +3,9 @@
 
 !!! About parsing
 
-Parsing is one of the most important part of developing software in Bioinformatics. Parsing is a process by which a developer makes sense of a sentence (acting as input data, usually a ""String""), usually by breaking it down into letters or words. 
+Parsing is one of the most important part of developing software in Bioinformatics. Parsing is a process by which a developer makes sense of a sentence (acting as input data, usually a ==String==), usually by breaking it down into letters or words. 
 
-A parser is an object that scans an input ""String"", decomposes it into its constituent parts (which you may define), and then optionally processes the parts in some suitable manner. 
+A parser is an object that scans an input ==String==, decomposes it into its constituent parts (which you may define), and then optionally processes the parts in some suitable manner. 
 
 Programming literature usually refer to writing a parser "by hand" when you write a parser without any support programming library. Currently taking such approach is rare and not recommended (because keeping track of contingencies caused by different inputs and input paths is extremely difficult), so developers usually use a parser generator, i.e. a software library, and write rules for such generator.
 
@@ -16,10 +16,10 @@ One of the major file formats in Bioinformatics is XML. XML is a widely supporte
 Under the XML core building block, there are several types of parsers used against a XML formatted file:
 
 - Tree Parser: This is what you will read everywhere as the "DOM parser"
-- Event Parser: This is denoted by S*X and could be
--- SAX Parser: Known as the "Push parser"
--- StAX Parser: Known also too as the "Pull parser"
-- VTD Parser : This is known as "Virtual Token Descriptor"
+- Event Parser: This is denoted by StAX or SAX and could be
+-- SAX Parser: Known as the "Push parser".
+-- StAX Parser: Known also too as the "Pull parser".
+- VTD Parser : This is known as "Virtual Token Descriptor".
 
 Note: as far as I know currently there is no VTD parser for Smalltalk. This is the most usual classification of XML Parsers:
 
@@ -50,7 +50,7 @@ BioSmalltalk uses different libraries to simplify and enable parsing of the many
 
 !!!! Parsing Sequences
 
-For example, finding if a given ""String"", like 'TCGTACGA', is actually a DNA sequence you just evaluate:
+For example, finding if a given ==String==, like 'TCGTACGA', is actually a DNA sequence you just evaluate:
 
 [[[ 
 #dnaSequence asParser matches: 'TCGTACGA'.  --> true
@@ -66,11 +66,10 @@ And for parsing:
 
 The #asParser method actually instantiates a parser, which is then sent the message #matches: to test the given input.
 
-Another common way to use the existing parsers is through the ""BioParser class"". In BioSmalltalk we have two modes of parsing: Tokenize and Parse. The tokenize messages always answer a Collection-like object containing other collections or primitive Smalltalk objects (this is, something like #('object1' 'object2') or 1234, 74.32, true, etc.), while the parse messages answer ""BioObject""'s. 
+Another common way to use the existing parsers is through the ==BioParser class==. In BioSmalltalk we have two modes of parsing: Tokenize and Parse. The tokenize messages always answer a Collection-like object containing other collections or primitive Smalltalk objects (this is, something like #('object1' 'object2') or 1234, 74.32, true, etc.), while the parse messages answer ==BioObject=='s. 
 
-You may want BioObjects if you need to keep working with the resulting bio-objects from your parsing. Or to learn relationships between BioObjects. 
-
-You may work with primitive Smalltalk objects like ""Integers"" or ""Strings"" if you want "cheap" objects.
+- If you need to keep working with the resulting bio-objects from your parsing (or learn relationships between BioObjects), you may want BioObjects.
+- If you want "cheap" (so-called primitive objects), you may work with primitive Smalltalk objects like ==Integers== or ==Strings== 
 
 !!! Parsing Accession Numbers
 

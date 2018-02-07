@@ -1,4 +1,4 @@
-!! Workign with Sequences
+!! Working with Sequences
 
 !!! Sequence Records
 
@@ -46,7 +46,7 @@ Simirarily, to access sequence annotations and per-letter annotations, the follo
 
 !!! Repetitive sequences
 
-There are several types of [repetitive DNA sequences](https://en.wikipedia.org/wiki/Repeated_sequence_%28DNA%29), and multiple ways of classify them, for example according to their function, their processes or structure. They are often seen as mobile genetic elements which have been replicated in a genome by inserting new copies of themselves into different positions. Some types of repetitive DNA segments, also known as "DNA fingerprints", are useful for identifying individuals in crime forensics, as genetic markers in linkage analysis and population studies.
+There are several types of repetitive DNA sequences *https://en.wikipedia.org/wiki/Repeated_sequence_%28DNA%29*, and multiple ways of classify them, for example according to their function, their processes or structure. They are often seen as mobile genetic elements which have been replicated in a genome by inserting new copies of themselves into different positions. Some types of repetitive DNA segments, also known as "DNA fingerprints", are useful for identifying individuals in crime forensics, as genetic markers in linkage analysis and population studies.
 
 The root class for accessing repetitive sequences is ==BioRepeatSequence==, and the following subsections explore the possibilities of BioSmalltalk with repetitive sequences. In the next sections, in sequences considered to be repeated, the repeat units are called "motif".
 
@@ -56,7 +56,7 @@ Also known as Transposon-Derived Repeats, interspersed repeats can be defined as
 
 !!!!! DNA transposons
 
-Also referred as "fossil" DNA elements (as far it is known, DNA transposons are not active anymore in humans), they are the simplest repetitive sequences and represent mobile DNA elements that transpose to new sites directly as DNA. They encode for an enzyme called "transposase" in a process named conservative transposition. An example of an actual DNA transposon [found](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC326035/pdf/nar00357-0345.pdf) in "c.elegans" in 1983, is this sequence of 1610 bp:
+Also referred as "fossil" DNA elements (as far it is known, DNA transposons are not active anymore in humans), they are the simplest repetitive sequences and represent mobile DNA elements that transpose to new sites directly as DNA. They encode for an enzyme called "transposase" in a process named conservative transposition. An example of an actual DNA transposon found in "c.elegans" in 1983, is this sequence of 1610 bp *https://www.ncbi.nlm.nih.gov/pmc/articles/PMC326035/pdf/nar00357-0345.pdf* :
 
 [[[
 BioDNATransposon new
@@ -100,10 +100,22 @@ Also known as STR (Short Tandem Repeats) or SSR (Simple Sequence Repeats), micro
 
 Microsatellites can be classified in several ways, for example by their repetition pattern (or motif type):
 
-- Perfect: Uninterrupted repeats: ----TATATATA-----
-- Imperfect: Interrupted by non-repeat nucleotides: ----TATATA--TATATA----TATA
-- Compound: Two or more STRs are found adjacent to one another: ---AGAGAGTAGATAGATAGA---
-- Complex: ----GAGAGA----AATAATAATAAT---
+- Perfect: Uninterrupted repeats: 
+[[[
+----TATATATA-----
+]]]
+- Imperfect: Interrupted by non-repeat nucleotides: 
+[[[
+----TATATA--TATATA----TATA
+]]]
+- Compound: Two or more STRs are found adjacent to one another: 
+[[[
+---AGAGAGTAGATAGATAGA---
+]]]
+- Complex: 
+[[[
+----GAGAGA----AATAATAATAAT---
+]]]
 
 And also could be classified also by the number of base pairs:
 
@@ -181,7 +193,7 @@ BioISAGPanel supportedMarkerTypes " #(#BioSTRSequence) "
 
 !!!! Microsatellites and Minisatellites Locus
 
-BioSmalltalk can use sequences with locis through the ==BioLocus== class which is used to represent "static" or unvariable information about a microsatellite or minisatellite. A locus is used by ==BioSTRSequence== or ==BioMinisatelliteSequence== respectively. In the following examples we are using as reference the Cattle STR information accessible at [http://www.cstl.nist.gov/biotech/strbase/cattleSTRs.htm](http://www.cstl.nist.gov/biotech/strbase/cattleSTRs.htm). Specifically we are going to set up the BM1818 loci through code. A microsatellite locus can have a simple or a compound repeat structure. You can set this with the proper message sends:
+BioSmalltalk can use sequences with locis through the ==BioLocus== class which is used to represent "static" or unvariable information about a microsatellite or minisatellite. A locus is used by ==BioSTRSequence== or ==BioMinisatelliteSequence== respectively. In the following examples we are using as reference the Cattle STR information accessible at * http://www.cstl.nist.gov/biotech/strbase/cattleSTRs.htm>(http://www.cstl.nist.gov/biotech/strbase/cattleSTRs.htm*. Specifically we are going to set up the BM1818 loci through code. A microsatellite locus can have a simple or a compound repeat structure. You can set this with the proper message sends:
 
 [[[
 BioLocus
@@ -192,11 +204,7 @@ BioLocus
 ]]]
 
 
-
 !!! Reading and Writing Sequences
-
-
-
 
 !!!! Reading FASTA records
 
@@ -205,7 +213,7 @@ The following script count letters for each fasta record in the 'Fasta_example_1
 [[[ 
 | mFasta fPath |
 
-fPath := BioObject testFilesFullDirectoryName , 'Fasta_example_1.fa'.
+fPath := 'Fasta_example_1.fa' asBioTestFileReference.
 mFasta := BioParser parseMultiFasta: (BioFASTAFile on: fPath) contents.
 mFasta collect: #occurrencesOfLetters
 ]]]
@@ -216,17 +224,18 @@ And of course the output is not nice for the human eye:
  an OrderedCollection(a Dictionary($A->24 $C->18 $G->25 $T->23 ) a Dictionary($A->33 $C->30 $G->23 $T->34 ) a Dictionary($A->25 $C->30 $G->15 $T->39 ) a Dictionary($A->17 $C->9 $G->19 $T->15 ) a Dictionary($A->26 $C->17 $G->36 $T->41 ) a Dictionary($A->8 $C->4 $G->11 $T->31 ) a Dictionary($A->31 $C->16 $G->17 $T->22 ) a Dictionary($A->16 $C->14 $G->15 $T->25 ) a Dictionary($A->14 $C->20 $G->11 $T->21 ) a Dictionary($A->20 $C->29 $G->25 $T->41 ) a Dictionary($A->12 $C->14 $G->8 $T->26 ) a Dictionary($A->26 $C->8 $G->11 $T->24 ) a Dictionary($A->36 $C->37 $G->16 $T->36 ) a Dictionary($A->30 $C->30 $G->33 $T->27 ) a Dictionary($A->14 $C->11 $G->13 $T->20 ) a Dictionary($A->34 $C->31 $G->20 $T->27 ) a Dictionary($A->23 $C->31 $G->29 $T->37 ) a Dictionary($A->30 $C->42 $G->25 $T->31 ) a Dictionary($A->7 $C->23 $G->5 $T->18 ) a Dictionary($A->15 $C->28 $G->6 $T->18 ) a Dictionary($A->23 $C->44 $G->12 $T->37 ))
 ]]]
 
-Suppose we want to display the output in CSV format. Each object could be formatted for CSV by implementing #outputAsCsvTo: aStream. Then modifying the script:
+Suppose we want to display the output in CSV format. Each object could be formatted for CSV by implementing #dumpAsCSVTo: aStream. Then modifying the script:
 
 [[[ 
 | mFasta filePath |
 
-filePath := BioObject testFilesFullDirectoryName , 'Fasta_example_1.fa'.
+filePath := 'Fasta_example_1.fa' asBioTestFileReference.
 mFasta := BioParser parseMultiFasta: (BioFASTAFile on: filePath) contents.
+" Format the contents of the Multi-Fasta letter occurrences "
 BioCSVFormatter new exportFrom: (mFasta collect: #occurrencesOfLetters).
 ]]]
 
-It is possible to get a timestamped file like "CSVOutput3536647736.csv" with contents like this:
+The last line writes to the current image directory a timestamped file like "CSVOutput3536647736.csv" with contents like this:
 
 [[[ 
 A;24

@@ -184,7 +184,7 @@ protein := BioSequence newProtein: 'AGFAVENDSA'.
 protein , dna translate.
 ]]]
 
-It is possible to specify the translation table to use alternative genetic codes, according to the [NCBI Genetic Codes](http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi) tables (check the transl_table identifier):
+It is possible to specify the translation table to use alternative genetic codes, according to the NCBI Genetic Codes *http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi* tables (check the transl_table identifier):
 
 [[[
 (BioSequence newRNA: 'AUGGCCAUUGUAAUGGGCCGCUGAAAGGGUGCCCGAUAG' ) translateWithTableId: 2.

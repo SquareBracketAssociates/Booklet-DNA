@@ -1,6 +1,10 @@
 !! Alignments
 
-Underlying sequences are in a BioAlignment are sequence based (contrary to String based). This could enable to access track information like quality score through the alignment itself, instead of maintaining multiple associated matrices. 
+!!! Introduction
+
+In Bioinformatics, a sequence alignment is the process of aligning a sequence to another (commonly called "reference") sequence(s) with the goal of identify relationships between the sequences.
+
+Sequences contained in a ==BioAlignment== are ==BioSequence== objects (contrary to ==String== based). This could enable to access track information like quality score through the alignment itself, instead of maintaining multiple associated matrices.
 
 "Creating a Multiple Sequence Alignment"
 [[[

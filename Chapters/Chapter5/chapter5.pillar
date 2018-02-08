@@ -1,5 +1,9 @@
 !!! Genomes
 
+!!!! Introduction
+
+" Work in progress "
+
 !!!! Downloading Genomes
 
 There are a few sites which provide access to complete sequenced genomes which are: NCBI, Ensembl, UCSC and JGI. BioSmalltalk provides an application programming interface to easily download genomes regardless of underlying changes in each of those web sites.
@@ -46,3 +50,9 @@ BioGenomeDownloader new
 ]]]
 
 Besides the download progress bar, progress could also be monitorized through the Process Browser:
+
+" images/ProcessBrowserGD.jpg "
+
+!!!! Conclusions
+
+" Work in progress "

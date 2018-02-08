@@ -1,7 +1,7 @@
 !! Parsing
 @cha:parsing
 
-!!! About parsing
+!!! Introduction
 
 Parsing is one of the most important part of developing software in Bioinformatics. Parsing is a process by which a developer makes sense of a sentence (acting as input data, usually a ==String==), usually by breaking it down into letters or words. 
 
@@ -39,8 +39,7 @@ or, if you are interested in the type of access to XML nodes, the following "tax
 - Processing all tokens: SAX
 - Processing interested tokens (allows skipping forward): StAX
 
-
-!!!! Parsing in BioSmalltalk
+!!! Parsing in BioSmalltalk
 
 BioSmalltalk uses different libraries to simplify and enable parsing of the many formats out there in the Bioinformatics arena. The libraries used are:
 
@@ -71,42 +70,38 @@ Another common way to use the existing parsers is through the ==BioParser class=
 - If you need to keep working with the resulting bio-objects from your parsing (or learn relationships between BioObjects), you may want BioObjects.
 - If you want "cheap" (so-called primitive objects), you may work with primitive Smalltalk objects like ==Integers== or ==Strings== 
 
-!!! Parsing Accession Numbers
+!!!! Parsing Accession Numbers
 
-An accession number is a unique sequential number assigned to each record (sequence) in a repository. This number allows for tracking of different versions of a sequence record and the associated sequence over time. Parsing an accession number answers a very simple object which you may use to store or index separatedly from its sequence, thus, reducing storage space and processing time. To parse an accession number:
+An accession number is a unique sequential number assigned to each record (sequence) in a repository. This number allows for tracking of different versions of a sequence record and the associated sequence over time. Parsing an accession number answers a very simple object which you may use to store or index separatedly from its sequence, thus, reducing storage space and processing time. 
 
+Parse an accession number:
 [[[ 
 BioParser parseAccession: 'CAF97855.1' -->  a BioAccession CAF97855 1
 ]]]
 
 You may also query if the accession number is versioned:
-
 [[[ 
 (BioParser parseAccession: 'CAF97855.1') isVersioned --> true
 ]]]
 
 And query the version number:
-
 [[[ 
 (BioParser parseAccession: 'CAF97855.1') version --> '1'
 ]]]
 
 Another shortcut for the same message is #asAccession
-
 [[[ 
 'XP_425521.2' asAccession version --> '2'
 ]]]
 
-!!! Parsing FASTA files
+!!!! Parsing FASTA files
 
-This is how to parse a FASTA file with multiple sequences:
-
+Parse a FASTA file with multiple sequences:
 [[[ 
 BioParser parseMultiFasta: (BioFASTAFile on: 'my_sequencesHM.fasta') contents.
 ]]]
 
 Given a header, split its identifiers: 
-
 [[[ 
 BioParser tokenizeFastaHeader: '>gi|198282148|ref|NC_011206.1| Acidithiobacillus ferrooxidans ATCC 53993 chromosome, complete genome'.
 
@@ -114,7 +109,6 @@ BioParser tokenizeFastaHeader: '>gi|198282148|ref|NC_011206.1| Acidithiobacillus
 ]]]
 
 Print in the Transcript each sequence description with its sequence size from a FASTA String: 
-
 [[[ 
 | fastaString |
 

@@ -1,5 +1,9 @@
 !! Working with Sequences
 
+!!! Introduction
+
+In practice, working with sequences is more complicated due to the rich set of information available for known sequences. This chapter cover more advanced objects to deal with specific sequence types, annotations, features, and its corresponding file types. 
+
 !!! Sequence Records
 
 ==BioSeqRecord== stores a sequence with additional information, which could be "annotations" or sequence features. You can think of a "Sequence Record" like a wrapper for a ==BioSequence== to attach additional information to a sequence. Equivalent classes in other Bio tookits are Bio::Sequence for BioRuby and Bio.SeqRecord for Biopython. In a sequence record usually the #id method is used to store an unique identifier such as the Accession Number (a ==BioAccession==), and the #name is used to hold a ==String== with a more descriptive name, such as clone name. The #description method is used to set up a ==String== with a textual, i.e. human readable, description of the sequence.
@@ -19,11 +23,16 @@ sequence := BioSequence newProtein: 'mdstnvrsgmksrkkkpkttvidddddcmtcsacqslkllndf
 		yourself.
 ]]]
 
-Mostly you would want to iterate over a collection of sequences with metadata information, and populate Sequence Records with annotations and features. Some Bio* libraries use to parse a GenBank file (.gbk) which is a textual format intended to be read by humans (even when there exists for years programming utilities like Entrez E-Utils to retrieve information in a machine-readable format).  One format which is easier to parse, is the XML format, and the following example retrieves a XML-formatted file with annotations, which are then stored in BioSeqRecord objects:
+Mostly you would want to iterate over a collection of sequences with metadata information, and populate Sequence Records with annotations and features. Some Bio* libraries use to parse a GenBank file (.gbk) which is a textual format intended to be read by humans (even when there exists for years programming utilities like Entrez E-Utils to retrieve information in a machine-readable format). A format which is easier to parse is the XML format. The following example retrieves a XML-formatted file with annotations:
 
-"Work in progress"
+Read and parse a XML formatted file with sequence information from GenBank:
 [[[
-'seq_records.xml'
+BioXMLGBSeqFullParser parse: 'TestGBSeq01.xml' asBioTestFileReference
+]]]
+
+One can also parse and extract only journal related information from the XML tree:
+[[[
+BioXMLGBSeqJournalParser parse: 'TestGBSeq01.xml' asBioTestFileReference
 ]]]
 
 To access sequence features, the following methods are available:
@@ -42,9 +51,9 @@ Simirarily, to access sequence annotations and per-letter annotations, the follo
 - letterAnnotationsAt:put: At a key first parameter, add a value ==Collection== with the receiver's per-letter annotation for the sequence. The collection passed as parameter must match the length of the receiver's sequence length.
 - removeLetterAnnotations : Completely remove all the letter annotations from the receiver.
 
-!! Sequence Types
+!!! Sequence Types
 
-!!! Repetitive sequences
+!!!! Repetitive sequences
 
 There are several types of repetitive DNA sequences *https://en.wikipedia.org/wiki/Repeated_sequence_%28DNA%29*, and multiple ways of classify them, for example according to their function, their processes or structure. They are often seen as mobile genetic elements which have been replicated in a genome by inserting new copies of themselves into different positions. Some types of repetitive DNA segments, also known as "DNA fingerprints", are useful for identifying individuals in crime forensics, as genetic markers in linkage analysis and population studies.
 

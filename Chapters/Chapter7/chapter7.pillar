@@ -17,7 +17,7 @@ Sequences contained in a ==BioAlignment== are ==BioSequence== objects (contrary 
 		addSequence: 'ACTGCTTGATAG'.		
 ]]]
 
-!! BLAST
+!!! BLAST
 
 Provided by the National Center for Biotechnology Information (NCBI), BLAST is a sequence homology search program that finds all the sequences that match a particular given sequence from a database. The NCBI-GenBank database contains over 150 billion nucleotide bases as of June 2013, and doubling its contents approximately every 18 months. It is considered the most fundamental tool in bioinformatics today, although there are many other similar programs for different cases. In BioSmalltalk you may query programmatically a BLAST at NCBI with the following parameters:
 
@@ -56,6 +56,5 @@ search dumpToFileNamed: 'blast-' , BioObject currentSeconds , '.xml'.
 ]]]
 
 ''Note: When the Transcript is opened (Tools --> Transcript) you may view a detailed log of message sends.''
-
 
 

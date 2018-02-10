@@ -2,19 +2,23 @@
 
 !!! Introduction
 
-In practice, working with sequences is more complicated due to the rich set of information available for known sequences. This chapter cover more advanced objects to deal with specific sequence types, annotations, features, and its corresponding file types. 
+In practice, working with sequences is more complicated due to the rich set of information available for known sequences. This chapter covers more objects to deal with specific sequence types, annotations, features, and its corresponding file types. The rationale behind the existence of features is based in the premise of that inside a sequence there could be subsequences of different function and importance, for example ALU repeats (a type of repeated sequence) or promotor regions. Most of the existing database projects recognized the need to include additional information, and offered in the form of "annotations". A well-known case are the feature tables from the GenBank and EMBL databases. These feature tables are based in the idea of tags: A main tag which is "primary" is used as a key (form example "source"), and has secondary sub-tags delimited by a divisor ("/") character each one being a key-pair value. Example: 
+
+[[[
+source	1...4982743/organism="Homo sapiens"/chromosome=5
+]]]
+
+These days raw sequence data is available from Next-Generation Sequence (NGS) database experiments, in SRA and/or FASTQ formatted files. Downloading of external resources is the subject of the Chapters of Accessing External Data (which includes an Entrez e-Utils API section) and Parsing. We will start here with more basic annotations and advance with more current methods for Genome annotations and downstream analysis.
 
 !!! Sequence Records
 
 ==BioSeqRecord== stores a sequence with additional information, which could be "annotations" or sequence features. You can think of a "Sequence Record" like a wrapper for a ==BioSequence== to attach additional information to a sequence. Equivalent classes in other Bio tookits are Bio::Sequence for BioRuby and Bio.SeqRecord for Biopython. In a sequence record usually the #id method is used to store an unique identifier such as the Accession Number (a ==BioAccession==), and the #name is used to hold a ==String== with a more descriptive name, such as clone name. The #description method is used to set up a ==String== with a textual, i.e. human readable, description of the sequence.
 
-A sequence record responds to the #annotations message to retrieve the sequence annotations. Such message will answer a Smalltalk ==Dictionary==, however, if you need to customize the annotations you may subclass ==BioSeqRecord== and override #annotationsClass method to answer a different kind of ==Dictionary==. 
+A sequence record responds to the #annotations message to retrieve the sequence annotations. Such message will answer a Smalltalk ==Dictionary==. 
 
 Creating a ==BioSeqRecord==:
 [[[
-| sequence |
-sequence := BioSequence newProtein: 'mdstnvrsgmksrkkkpkttvidddddcmtcsacqslkllndfas'.
-(BioSeqRecord new: sequence)
+(BioSeqRecord new: 'mdstnvrsgmksrkkkpkttvidddddcmtcsacqslkllndfas' asSequence)
 		id: 'P20994.1';
 		name: 'P20994';
 		description: 'Protein A19';
@@ -22,6 +26,7 @@ sequence := BioSequence newProtein: 'mdstnvrsgmksrkkkpkttvidddddcmtcsacqslkllndf
 		annotationAt: #note put: 'A simple note';
 		yourself.
 ]]]
+"If you need to customize the annotations you may subclass ==BioSeqRecord== and override #annotationsClass method to answer a different kind of ==Dictionary==."
 
 Mostly you would want to iterate over a collection of sequences with metadata information, and populate Sequence Records with annotations and features. Some Bio* libraries use to parse a GenBank file (.gbk) which is a textual format intended to be read by humans (even when there exists for years programming utilities like Entrez E-Utils to retrieve information in a machine-readable format). A format which is easier to parse is the XML format. The following example retrieves a XML-formatted file with annotations:
 
@@ -35,7 +40,13 @@ One can also parse and extract only journal related information from the XML tre
 BioXMLGBSeqJournalParser parse: 'TestGBSeq01.xml' asBioTestFileReference
 ]]]
 
-To access sequence features, the following methods are available:
+The above method will answer a ==Dictionary== which requires you to know the exact key names. To actually build a sequence record from a GenBank file:
+
+[[[
+BioSeqRecord fromGBXML: 'TestGBSeq01.xml' asBioTestFileReference.
+]]]
+
+Then sequence features are available by sending messages to a ==BioSeqRecord== instance. The following methods are available:
 
 - sequenceFeatures, sequenceFeatures: Answer or set a ==Collection== the receiver's sequence ==BioSequenceFeature==s.
 - addSeqFeature: Add a ==BioSequenceFeature== passed as parameter, to the receiver's sequence.
@@ -57,6 +68,8 @@ Simirarily, to access sequence annotations and per-letter annotations, the follo
 
 There are several types of repetitive DNA sequences *https://en.wikipedia.org/wiki/Repeated_sequence_%28DNA%29*, and multiple ways of classify them, for example according to their function, their processes or structure. They are often seen as mobile genetic elements which have been replicated in a genome by inserting new copies of themselves into different positions. Some types of repetitive DNA segments, also known as "DNA fingerprints", are useful for identifying individuals in crime forensics, as genetic markers in linkage analysis and population studies.
 
+Established repeats are usually integrated in repeats databases, specially for vertebrate organisms, such as Repbase *http://www.girinst.org/*, STRBase *http://strbase.nist.gov/*, and Tandem Repeats Database *https://tandem.bu.edu/cgi-bin/trdb/trdb.exe*, and even well-known tools are used to find repeats, for example: RepeatMasker *http://repeatmasker.org/* and CENSOR *http://www.girinst.org/censor/*.
+
 The root class for accessing repetitive sequences is ==BioRepeatSequence==, and the following subsections explore the possibilities of BioSmalltalk with repetitive sequences. In the next sections, in sequences considered to be repeated, the repeat units are called "motif".
 
 !!!! Interspersed repeats. 
@@ -65,7 +78,7 @@ Also known as Transposon-Derived Repeats, interspersed repeats can be defined as
 
 !!!!! DNA transposons
 
-Also referred as "fossil" DNA elements (as far it is known, DNA transposons are not active anymore in humans), they are the simplest repetitive sequences and represent mobile DNA elements that transpose to new sites directly as DNA. They encode for an enzyme called "transposase" in a process named conservative transposition. An example of an actual DNA transposon found in "c.elegans" in 1983, is this sequence of 1610 bp *https://www.ncbi.nlm.nih.gov/pmc/articles/PMC326035/pdf/nar00357-0345.pdf* :
+Also referred as "fossil" DNA elements (as far it is known, DNA transposons are not active anymore in humans since 50 million of years), they are the simplest repetitive sequences and represent mobile DNA elements that transpose to new sites directly as DNA. They encode for an enzyme called "transposase" in a process named conservative transposition. They are the "cut and paste" of transposable DNA. An example of an actual DNA transposon found in "c.elegans" in 1983, is this sequence of 1610 bp *https://www.ncbi.nlm.nih.gov/pmc/articles/PMC326035/pdf/nar00357-0345.pdf* :
 
 [[[
 BioDNATransposon new
@@ -93,6 +106,18 @@ AAACCAAAAGTGGATATCTTTTGGCCAGCACTG';
 	yourself.
 ]]]
 
+!!!!! Retrotransposons
+
+Retrotransposons are the "copy and paste" variant of transposable elements.
+
+!!!!!! SINEs
+
+SINEs (Short INterspersed Elements) are a specific kind of Retrotransposons.
+
+!!!!!! Alu Repeats
+
+Alu elements are primate-specific SINEs and represents the most abundant nonautonomous retrotransposons. Alu sequences are usually linked to human diseases.
+
 !!!! Tandem repeat sequences
 
 If the copies of a sequence motif lie adjacent to each other in a block, or an array, we are speaking about ==tandem repeats==. There are three types of Tandem Repeat DNA or "Satellite DNA": 
@@ -105,7 +130,7 @@ Both Minisatellites and STR's are also called VNTRs because the number of repeat
 
 !!!!! Microsatellites 
 
-Also known as STR (Short Tandem Repeats) or SSR (Simple Sequence Repeats), microsatellites are nuclear DNA sequences with fewer than 5 base pairs. In BioSmalltalk we use the microsatellite definition at the US National Library of Medicine Medical Subject Headings (MeSH) considering a STR sequence to be from 2 to 5 base pairs long. STRs are used as genetic markers and population studies, to study gene duplication or deletion.
+Also known as STR (Short Tandem Repeats) or SSR (Simple Sequence Repeats), microsatellites are nuclear DNA sequences with fewer than 5 base pairs, found in both coding and non-coding regions of genomes. In BioSmalltalk we use the microsatellite definition at the US National Library of Medicine Medical Subject Headings (MeSH) considering a STR sequence to be from 2 to 5 base pairs long. STRs are used as genetic markers and population studies, to study gene duplication or deletion.
 
 Microsatellites can be classified in several ways, for example by their repetition pattern (or motif type):
 
@@ -173,12 +198,17 @@ Segmental duplications are blocks which may consist of 1000 kb to 200,000 kb of 
 
 "Work in progress"
 
-
 !!! Panels of Markers
 
-Panels or markers are used for routine use in species parentage testing and identification. BioSmalltalk provide classes for accessing information about recommended panels of markers. The root class for the hierarchy of panels is ==BioPanel==. Subclasses implements specific panels including class methods for particular species. For example the class ==BioFAOPanel== is used to access a panel of loci recommended by the "Food and Agriculture Organization of the United Nations (FAO)" for genetic studies of domestic animals. Also a class for the panel marker information provided by the "International Society for Animal Genetics (ISAG)" is available in the class ==BioISAGPanel==. 
+Panels of markers are used for routine use in species parentage testing and identification. BioSmalltalk provides classes for accessing information about recommended panels of markers. The root class for the hierarchy of panels is ==BioPanel==. Subclasses implements specific panels including class methods for particular species. For example the class ==BioFAOPanel== is used to access a panel of loci recommended by the "Food and Agriculture Organization of the United Nations (FAO)" for genetic studies of domestic animals. Also a class for the panel marker information provided by the "International Society for Animal Genetics (ISAG)" is available in the class ==BioISAGPanel==. 
 
-The markers information could be accessed using the following methods: 
+At first, current available panels could be queried:
+
+[[
+BioPanel availablePanels
+]]
+
+For example, markers for cattle could be accessed using the following expressions: 
 
 [[[
 BioFAOPanel markerAlleleRangesForCattle.
@@ -187,14 +217,7 @@ BioISAGPanel markerAlleleRangesForCattle.
 
 answering a ==Collection== of ==BioLocus==, each one representing a position in a chromosomal location.
 
-The marker allele ranges along with its positions in both cases could be accessed as:
-
-[[[
-BioFAOPanel markerAlleleRangesForCattle.
-BioISAGPanel markerAlleleRangesForCattle.
-]]]
-
-Each panel should implement the method #markersForSpecies, providing a ==Dictionary== of names of supported species, with its associated method. Also each class provides a method for determining which types of markers (STR, Minisatellite, etc.) are supported by the panel. For example display the markers available for the ISAG Panel answer its marker associated class:
+Each panel should implement the method #markersForSpecies, providing a ==Dictionary== of names of supported species, with its associated method. Also each class provides a method for determining which types of markers (STR, Minisatellite, etc.) are supported by the panel. To display the markers available for the ISAG Panel and answer its marker associated class:
 
 [[[
 BioISAGPanel supportedMarkerTypes " #(#BioSTRSequence) "
@@ -263,4 +286,14 @@ C;30
 T;39
 
 ...
+]]]
+
+!!!! Reading FASTQ records
+
+[[[ 
+| fastq filePath |
+
+filePath := 'misc_dna_as_illumina.fastq' asBioTestFileReference.
+fastq := BioParser parseFastQ: (BioFASTQFile on: filePath) contents.
+fastq
 ]]]

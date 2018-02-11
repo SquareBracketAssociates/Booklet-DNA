@@ -51,7 +51,7 @@ BioGenomeDownloader new
 
 Besides the download progress bar, progress could also be monitorized through the Process Browser:
 
-" images/ProcessBrowserGD.jpg "
++The Pharo Process Browser.>file://figures/ProcessBrowserGD.jpg|width=70|label=PharoProcessBrowser+
 
 !!!! Conclusions
 

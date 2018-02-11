@@ -138,7 +138,7 @@ BioPEDMAPFilesLoader open.
 
 The window will require mandatory population name, a .PED and .MAP files to be selected. Once opened, you can browse to your PED/MAP files and click Load to perform an action.
 
-+Selecting MAP file>file://figures/BioPEDMAP_FilesLoader_2.jpg)|width=75%+
++Selecting MAP file>file://figures/BioPEDMAP_FilesLoader_2.jpg|width=75%+
 
 Which action is performed by default? If no action was specified, then the Load button will close the PED/MAP loader and return an Association with the file name of the selected .PED file as key, and the name of the .MAP file as value. The answered directory name will have a system dependent path separator (e. g. / for Unix) appended:
 
@@ -279,7 +279,7 @@ BioLAMPLDWrapper new
 
 !!! HMMER
 
-To test if the HMMER wrapper is working properly for your platform evaluate:
+HMMER is a sequence analysis tool, using profile-Hidden Markov Models, to search for homologs sequences against sequence databases or a single sequence. You can see more information about HMMER3 in *http://hmmer.org/*. To test if the HMMER BioSmalltalk wrapper is working properly for your platform evaluate:
 
 [[[
 BioHMMERWrapper new 
@@ -287,9 +287,9 @@ BioHMMERWrapper new
         execute.
 ]]]
 
-Successfull execution should answer a BioResultObject with results.
+Successfull execution should answer a ==BioResultObject== with results.
 
-Translated code from the HMMER tutorial:
+The following code is translated code from the HMMER tutorial, which uses an example alignment of four globin sequences, in Stockholm format:
 
 [[[
 | samplesDir hmmFile stoFile fastaFile outputFile |
@@ -318,6 +318,19 @@ BioHMMERWrapper new
 !!!! Phyx
 
 " Work in progress "
+
+!!!! fastq-mcf
+
+fastq-mcf is a software for adapter removal in NGS experiment data. *https://github.com/ExpressionAnalysis/ea-utils/blob/wiki/FastqMcf.md*
+
+[[[
+BioFASTQMcfWrapper new
+	out1: 'cleanedR1.fq.gz' asBioTestFileReference fullName;
+	out2: 'cleanedR2.fq.gz' asBioTestFileReference fullName;
+	input1: #('uncleaned.lane1.R1.fq.gz' 'uncleaned.lane2.R1.fq.gz');
+	input2: #('uncleaned.lane1.R2.fq.gz' 'uncleaned.lane2.R2.fq.gz');
+	yourself
+]]]
 
 !!! Conclusion
 

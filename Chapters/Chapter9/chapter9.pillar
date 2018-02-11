@@ -1,10 +1,12 @@
 !! Population Genetics
 
+!!! Introduction
+
 Population genetics is the study of genetic variation, specifically the allele frequency changes, in a population, as the population is subject to the four main evolutionary processes: natural selection, genetic drift, mutation and gene flow. It also takes into account the factors of recombination, population subdivision and population structure.
 
 !!! Genotypes
 
-A genotype is composed of two alleles and a position in a chromosome. It can be simply instantiated using Character objects for the alleles and a ""BioLocus"" for its position, as follows: 
+A genotype is composed of two alleles and a position in a chromosome. It can be simply instantiated using ==Character== objects for the alleles and a ==BioLocus== for its position, as follows: 
 
 [[[
 BioGenotype new
@@ -17,7 +19,7 @@ BioGenotype new
     yourself.
 ]]]
 
-A genotype collection is a ""Collection"" of genotype objects (instances of BioGenotype). It can be instantiated by providing a ""String"" of alleles delimited by spaces, as:
+Genotypes are a ==Collection== of instances of ==BioGenotype==. It can be instantiated by providing a ==String== of alleles delimited by spaces, as follows:
 
 [[[
 BioGenotypeCollection
@@ -31,7 +33,7 @@ BioGenotypeCollection
     fromTabbedAlleles: 'T T C C C T C C G A T C A G C C A A A G T C C C T T C C C C C C G G A A A A T T T T A A A A T T A A G A G G C C T C C C C C T T A A C C 0 0 C C A A C C T T G G T T C C G G C A T T T T C T C T T C 0 0 0 0 C C A A T T A A C C A A C C A A C C G G A G T C C C A A C C T T C C T T A A C C C C A A T T A A T C A G C T C C G G C C C C T T T T G G T T T T G G T T T T G'.
 ]]]
 
-Genotype collections can be added to a BioPopulation contained in samples:
+Genotype collections can be added to a ==BioPopulation== contained in samples:
 
 [[[
 | genotypesA genotypesB |
@@ -65,7 +67,7 @@ BioSpeciesLists currentSpeciesList
 
 !!!! Population Repository Model
 
-""BioSpecies"" serves as a global repository for organism populations. Each organism is represented by a ""BioPopRepository"". In turn, each ""BioPopRepository"" stores repository versions, instances of ""BioPopRepositoryVersion"", which has the actual varieties (read: breeds, models, strains, etc. depending on your organism taxonomy vocabulary). This group of objects altogether collaborates to build a versioned repository of organism names, synonymous and occurrences. They are ""not"" inteded to store particular organisms for which the class ""BioSample"" is avaliable.
+==BioSpecies== serves as a global repository for organism populations. Each organism is represented by a ==BioPopRepository==. In turn, each ==BioPopRepository== stores repository versions, instances of ==BioPopRepositoryVersion==, which has the actual varieties (read: breeds, models, strains, etc. depending on your organism taxonomy vocabulary). This group of objects altogether collaborates to build a versioned repository of organism names, synonymous and occurrences. They are not inteded to store particular organisms for which the class ==BioSample== is avaliable.
 
 You may start inspecting the repository model by evaluating:
 

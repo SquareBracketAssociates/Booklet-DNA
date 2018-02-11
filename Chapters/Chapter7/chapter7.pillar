@@ -2,9 +2,7 @@
 
 !!! Introduction
 
-In Bioinformatics, a sequence alignment is the process of aligning a sequence to another (commonly called "reference") sequence(s) with the goal of identify relationships between the sequences.
-
-Sequences contained in a ==BioAlignment== are ==BioSequence== objects (contrary to ==String== based). This could enable to access track information like quality score through the alignment itself, instead of maintaining multiple associated matrices.
+In Bioinformatics, a sequence alignment is the process of aligning a sequence to another (commonly called "reference") sequence(s) with the goal of identify relationships between the sequences. Sequences (instances of are ==BioSequence==) are contained in a ==BioAlignment==. This could enable to access track information like quality score through the alignment itself, instead of maintaining multiple associated matrices.
 
 "Creating a Multiple Sequence Alignment"
 [[[
@@ -48,7 +46,6 @@ GCCGCTCAGATTCTGTGTGGCAGGCGCGTGTTGGAGTCTAAA';
 		fetch.
 ]]]
 
-
 Now the "search" object contains a BioWebBlastResult. The following line write the XML contents to a timestamped file in the directory where the .image file is located:
 
 [[[ 
@@ -57,4 +54,7 @@ search dumpToFileNamed: 'blast-' , BioObject currentSeconds , '.xml'.
 
 ''Note: When the Transcript is opened (Tools --> Transcript) you may view a detailed log of message sends.''
 
+!!! Conclusion
+
+Work in progress
 

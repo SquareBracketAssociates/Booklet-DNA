@@ -76,22 +76,22 @@ An accession number is a unique sequential number assigned to each record (seque
 
 Parse an accession number:
 [[[ 
-BioParser parseAccession: 'CAF97855.1' -->  a BioAccession CAF97855 1
+BioParser parseAccession: 'CAF97855.1' " -->  a BioAccession CAF97855 1 "
 ]]]
 
 You may also query if the accession number is versioned:
 [[[ 
-(BioParser parseAccession: 'CAF97855.1') isVersioned --> true
+(BioParser parseAccession: 'CAF97855.1') isVersioned " --> true "
 ]]]
 
 And query the version number:
 [[[ 
-(BioParser parseAccession: 'CAF97855.1') version --> '1'
+(BioParser parseAccession: 'CAF97855.1') version " --> '1' "
 ]]]
 
 Another shortcut for the same message is #asAccession
 [[[ 
-'XP_425521.2' asAccession version --> '2'
+'XP_425521.2' asAccession version " --> '2' "
 ]]]
 
 !!!! Parsing FASTA files
@@ -144,3 +144,7 @@ TTTCCATTCAGATGCGACCCCAGGTCAGGCGGGGCCACCCGCTGAGTTGAGGC
                         show: seqRecord name; cr;
                         show: seqRecord size; cr; cr ]
 ]]]
+
+!!! Conclusion
+
+Work in progress...

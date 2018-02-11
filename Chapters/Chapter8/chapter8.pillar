@@ -6,7 +6,7 @@
 
 !!! Entrez
 
-The Entrez Global Query Cross-Database Search System is a federated search engine consisting of 39 public databases. It allows to retrieve sequences, structures, genes, proteins, genomes and literature data. The Entrez API is an interface for accessing to the Entrez Utilities (eUtils) provided by the NCBI *https://www.ncbi.nlm.nih.gov/sites/gquery*. The following snippets provide examples to use the API in BioSmalltalk:
+The Entrez Global Query Cross-Database Search System is a federated search engine currently conformed by 39 public databases. It allows to retrieve sequences, structures, genes, proteins, genomes, literature data and other specific types of Life Sciences valuable information. The Entrez API is an interface for accessing to the Entrez Utilities (eUtils) provided by the NCBI *https://www.ncbi.nlm.nih.gov/sites/gquery*. The following snippets provide examples to use the API in BioSmalltalk:
 
 !!!! FASTA record from Protein
 
@@ -74,12 +74,6 @@ result dumpToFileNamed: 'eFetch1.xml'
         search) dumpToFileNamed: 'insulin AND homo_protein.xml'
 ]]]
 
-!!! Conclusion
-
-" Work in progress "
-
-
-
 !! Swiss-Prot and ExPASy
 
 Work in progress...
@@ -118,3 +112,7 @@ To further filter results, you can use the XML parser provided by BioSmalltalk. 
 	pdbCodes: { '3gcb' . '1sar' };
 	fetch)
 ]]]
+
+!!! Conclusion
+
+Work in progress

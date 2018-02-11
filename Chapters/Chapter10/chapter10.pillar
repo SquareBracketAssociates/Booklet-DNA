@@ -1,14 +1,16 @@
 !! Wrappers
 
-A wrapper is a Smalltalk class built around an external software, which is assumed to be already installed in the system and usually executed by typing through command-line (cmd.exe, bash, ksh, etc.). In other words, a wrapper could expand on what another object (the wrappee) does. Issuing command line parameters is a typo prone process, specially for command line programs with many options. To prevent such situation, BioSmalltalk includes a set of classes for accessing bioinformatics software, which lets use messages to configure program parameters and use the full power of object technology, i.e. use iterators like do:, collect:, select: and others around these wrappers, save executed wrappers instances for future usage, support multiple software versions transparently, this is, using the same code regardless which version is installed in a host, and include additional parameter validations, among many others. 
+!!! Introduction
 
-The common root class for wrappers is ""BioWrapperObject"". This means that any subclass can be queried for the following properties:
+A wrapper is a Smalltalk class built around an external software, which is assumed to be already installed in the host system and usually executed by typing through command-line (cmd.exe, bash, ksh, etc.). In other words, a wrapper could expand on what another object (the wrappee) does. Issuing command line parameters is a typo prone process, specially for command line programs with many options. To prevent such situation, BioSmalltalk includes a set of classes for accessing bioinformatics software, which lets use messages to configure program parameters and use the full power of object technology, i.e. use iterators like do:, collect:, select: and others around these wrappers, save executed wrappers instances for future usage, support multiple software versions transparently, this is, using the same code regardless which version is installed in a host, and include additional parameter validations, among many others. 
 
-- availablePlatforms: Answer a <Collection> of <String> with receiver's supported platforms.
-- platformCheck: Answer <true> if receiver can be executed in the current platform.
-- releases: Answer a <Collection> of <String> each representing a binary name version of the receiver.
-- softwareName: Answer a <String> with the receiver's friendly or known name.
-- url: Answer a <String> representing receiver's URL 
+The common root class for wrappers is ==BioWrapperObject==. This means that any subclass can be queried for the following properties:
+
+- availablePlatforms: Answer a ==Collection== of ==String== with receiver's supported platforms.
+- platformCheck: Answer ==true== if receiver can be executed in the current platform.
+- releases: Answer a ==Collection== of ==String== each representing a binary name version of the receiver.
+- softwareName: Answer a ==String== with the receiver's friendly or known name.
+- url: Answer a ==String== representing receiver's URL 
 
 Additionally, each subclass may contain example methods ready to be executed from the Class Browser.  
 
@@ -39,7 +41,6 @@ BioPLINK2Wrapper new
 
 Transpose to output .TPED and .TFAM files:
 
-
 [[[
 | samplesDir |
 
@@ -52,7 +53,6 @@ BioPLINK2Wrapper new
 ]]]
 
 To get out numeric alleles:
-
 
 [[[
 | samplesDir |
@@ -69,13 +69,9 @@ BioPLINK2Wrapper new
 
 To get out specific chromosome excluding individuals with genotyping error > 5% (or call rate at least of 95%):
 
-
 [[[
-| samplesDir |
-
-samplesDir := BioPLINK2Wrapper testFilesFullDirectoryName.
 BioPLINK2Wrapper new
-	file: (samplesDir / 'sample_ped') fullName;
+	file: 'sample_ped' asBioTestFileReference fullName;
 	out: 'sample_out';
 	chr: 23;
 	mind: 0.5;
@@ -89,7 +85,7 @@ Combining filters in one pass:
 
 samplesDir := BioPLINK2Wrapper testFilesFullDirectoryName.
 BioPLINK2Wrapper new
-	file: (samplesDir / 'sample_ped') fullName;
+	file: 'sample_ped' asBioTestFileReference fullName;
 	out: 'sample_out';
 	chr: 23;
 	mind: 0.5;
@@ -98,12 +94,9 @@ BioPLINK2Wrapper new
 	execute.
 ]]]
 
-!!!!! Advanced filters
+!!!!! Advanced filters: Split a genome PED by chromosome. 
 
-##### Splitting a genome PED by chromosome. 
-
-This script generates N files according to the number of chromosomes if non-human data is used, using the provided species parameter (cow, dog, horse, mouse, etc). The list of supported organisms is currently available at: [https://www.cog-genomics.org/plink/1.9/input#chr_set](https://www.cog-genomics.org/plink/1.9/input#chr_set)
-
+This script generates N files according to the number of chromosomes if non-human data is used, using the provided species parameter (cow, dog, horse, mouse, etc). The list of supported organisms is currently available at: *https://www.cog-genomics.org/plink/1.9/input#chr_set*
 
 [[[
 | samplesDir |
@@ -117,10 +110,9 @@ BioPLINK2Wrapper new
 	execSplitChrs
 ]]]
 
-##### Splitting by family IDs 
+!!!!! Advanced filters: Split by family IDs 
 
-This filter requires to specify a ""Collection"" with valid families in your data set.
-
+This filter requires to specify a ==Collection== with valid families in your data set.
 
 [[[
 | samplesDir |
@@ -134,9 +126,6 @@ BioPLINK2Wrapper new
 	execute.
 ]]]
 
-
-
-
 !!!! Reading PLINK (PEDMAP) files
 
 BioSmalltalk includes a simple utility to browse and select PED/MAP files. You can use it for your projects and launch it by evaluating:
@@ -145,14 +134,11 @@ BioSmalltalk includes a simple utility to browse and select PED/MAP files. You c
 BioPEDMAPFilesLoader open.
 ]]]
 
-![Opening the PEDMAP loader](images\BioPEDMAP_FilesLoader_1.jpg){ width=50% }
++Opening the PEDMAP loader>file://figures/BioPEDMAP_FilesLoader_1.jpg|width=50%+
 
-The window will require mandatory population name, a .PED and .MAP files to be selected. 
+The window will require mandatory population name, a .PED and .MAP files to be selected. Once opened, you can browse to your PED/MAP files and click Load to perform an action.
 
-
-Once opened, you can browse to your PED/MAP files and click Load to perform an action.
-
-![Selecting MAP file](images\BioPEDMAP_FilesLoader_2.jpg){ width=75% }
++Selecting MAP file>file://figures/BioPEDMAP_FilesLoader_2.jpg)|width=75%+
 
 Which action is performed by default? If no action was specified, then the Load button will close the PED/MAP loader and return an Association with the file name of the selected .PED file as key, and the name of the .MAP file as value. The answered directory name will have a system dependent path separator (e. g. / for Unix) appended:
 
@@ -195,15 +181,11 @@ BioPLINK2Wrapper new
 	execute.
 ]]]
 
-
-
 !!! ShapeIt
 
 !!!! Input preparation
 
-ShapeIt is a fast and accurate method for estimation of haplotypes (a.k.a. phasing) from a set of SNP genotypes (.ped format or its .bed/.bim/.fam binary version) and a genetic map (.map format), and produces as output, either a single set of estimated haplotypes, or a haplotype graph that encapsulates the uncertainty about the underlying haplotypes. The software is currently only available in Unix-like OS.
-
-ShapeIt2 outputs a pair .haps (IMPUTE2 format) and .sample files.
+ShapeIt is a fast and accurate method for estimation of haplotypes (a.k.a. phasing) from a set of SNP genotypes (.ped format or its .bed/.bim/.fam binary version) and a genetic map (.map format), and produces as output, either a single set of estimated haplotypes, or a haplotype graph that encapsulates the uncertainty about the underlying haplotypes. The software is currently only available in Unix-like OS. ShapeIt2 outputs a pair .haps (IMPUTE2 format) and .sample files.
 
 !!!! Wrapper execution
 
@@ -213,8 +195,7 @@ To use the wrapper the program binary must be in the system PATH environment var
 BioShapeIt2Wrapper releases
 ]]]
 
-Each resulting element represents a Class which can be used to execute a specific software version. 
-The following expression launches ShapeIt2 from BioSmalltalk, setting several parameters such as:
+Each resulting element represents a Smalltalk ==Class== which can be used to execute a specific software version. The following expression launches ShapeIt2 from BioSmalltalk, setting several parameters such as:
 
 - The number of burn-in MCMC iterations
 - The input file name (without extension),
@@ -242,8 +223,6 @@ BioShapeIt2WrapperR644 new
  execute
 ]]]
 
-
-
 !!! LAMP-LD
 
 BioLAMPLD is a package which includes several classes for working with the LAMP-LD software for doing inference of locus-specific ancestry in recently admixed populations. LAMP-LD is currently available only for Unix/Linux systems.
@@ -261,12 +240,9 @@ BioLAMPLDGenotypeFormatter new
 
 !!! Wrapper execution
 
-The main class for interacting with LAMP-LD is BioLAMPLDWrapper which ""replace"" the need to run the perl script run_LAMPLD.pl provided by LAMP-LD software. The wrapper can be executed for a single or a range of window size(s). 
-
-The wrapper automatically adds the positional parameters in the order expected by LAMP-LD, which enables the user to send the configuration messages in any order. Adding ancestry population files (.hap) requires to provide a positive Integer with the population order through #addPopFile:atOrder:
+The main class for interacting with LAMP-LD is BioLAMPLDWrapper which ""replace"" the need to run the perl script run_LAMPLD.pl provided by LAMP-LD software. The wrapper can be executed for a single or a range of window size(s). The wrapper automatically adds the positional parameters in the order expected by LAMP-LD, which enables the user to send the configuration messages in any order. Adding ancestry population files (.hap) requires to provide a positive Integer with the population order through #addPopFile:atOrder:
 
 Usage example for 2-way populations with a single window size (50) :
-
 
 [[[
 | samplesDir |
@@ -284,8 +260,7 @@ BioLAMPLDWrapper new
 	execute.
 ]]]
 
-To execute for several window sizes, say from 30 to 150, you can specify an ""Interval"" instance :
-
+To execute for several window sizes, say from 30 to 150, you can specify an ==Interval== instance :
 
 [[[
 | samplesDir |
@@ -302,9 +277,6 @@ BioLAMPLDWrapper new
 	executeWS.
 ]]]
 
-
-
-
 !!! HMMER
 
 To test if the HMMER wrapper is working properly for your platform evaluate:
@@ -315,11 +287,9 @@ BioHMMERWrapper new
         execute.
 ]]]
 
-Successfull execution should answer a BioResultObject with results:  
+Successfull execution should answer a BioResultObject with results.
 
-![BioResultObject inspector on HMMER execution](images\Inspector_BioResultObject.jpg){ width=70% }
-
-Now this is translated code from the HMMER tutorial:
+Translated code from the HMMER tutorial:
 
 [[[
 | samplesDir hmmFile stoFile fastaFile outputFile |
@@ -345,10 +315,11 @@ BioHMMERWrapper new
         execute.
 ]]]
 
-
-
 !!!! Phyx
 
 " Work in progress "
 
+!!! Conclusion
+
+Work in progress...
 

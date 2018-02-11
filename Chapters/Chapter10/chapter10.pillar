@@ -238,7 +238,7 @@ BioLAMPLDGenotypeFormatter new
 	export.
 ]]]
 
-!!! Wrapper execution
+!!!! Wrapper execution
 
 The main class for interacting with LAMP-LD is BioLAMPLDWrapper which ""replace"" the need to run the perl script run_LAMPLD.pl provided by LAMP-LD software. The wrapper can be executed for a single or a range of window size(s). The wrapper automatically adds the positional parameters in the order expected by LAMP-LD, which enables the user to send the configuration messages in any order. Adding ancestry population files (.hap) requires to provide a positive Integer with the population order through #addPopFile:atOrder:
 
@@ -315,11 +315,11 @@ BioHMMERWrapper new
         execute.
 ]]]
 
-!!!! Phyx
+!!! Phyx
 
 " Work in progress "
 
-!!!! fastq-mcf
+!!! fastq-mcf
 
 fastq-mcf is a software for adapter removal in NGS experiment data. *https://github.com/ExpressionAnalysis/ea-utils/blob/wiki/FastqMcf.md*
 

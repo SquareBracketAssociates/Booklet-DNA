@@ -74,7 +74,7 @@ result dumpToFileNamed: 'eFetch1.xml'
         search) dumpToFileNamed: 'insulin AND homo_protein.xml'
 ]]]
 
-!! Swiss-Prot and ExPASy
+!!! Swiss-Prot and ExPASy
 
 Work in progress...
 

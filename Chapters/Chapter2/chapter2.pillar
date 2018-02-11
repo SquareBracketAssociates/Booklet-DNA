@@ -22,8 +22,7 @@ Finally, a useful advice often done by experienced Smalltalkers is to actually e
 
 !!! Scripting Languages versus Smalltalk
 
-{{{latex:
-\tabulinesep=1.8mm
+{{{latex:\tabulinesep=1.8mm
 \begin{longtabu} to \linewidth{X[1,l,m] X[1,m]}
 \everyrow{\tabucline-}
 \caption{Comparison of coding taks} \\
@@ -33,7 +32,7 @@ Finally, a useful advice often done by experienced Smalltalkers is to actually e
 {{\bfseries \tablename\ \thetable{}: Features}} \\
 \textbf{Python/Perl/Ruby} & \textbf{Pharo Smalltalk} \\
 \endhead
-\midrule
+\midrule}}}
 Write a script (in a file) called foo.py/foo.pl/etc                           & Write a script in some environment tool (Workspace, Script Manager, etc.)     \\
 Specify a shebang line                                                        & Not necessary     \\
 Code navigation                                                               & Open the System Browser \\
@@ -41,10 +40,9 @@ Search import modules and how to "invoke" them                                & 
 Search for senders/callers of a function: Configure ctags for your language   & In a method, press the Senders button    \\
 Place your source code in directories or/and files                            & Not necessary, the snapshot system will persist your source code    \\
 Execute your program : Find a way to execute the command line interpreter/compiler specifying with your script name as input 																		  & Select any piece of valid source code and press the mouse right button, then do it or print it    \\
-\bottomrule
+{{{latex:\bottomrule
 \end{longtabu}
 }}}
-
 
 Usually depends of a web browser on the generated pages from cross-linking the source code and comments by an autodoc tool. This setting usually doesn't allow targeted navigation.
 

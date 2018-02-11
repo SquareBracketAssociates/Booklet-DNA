@@ -8,10 +8,17 @@ BioSmalltalk is free of charge and far from perfect. The developer does not prov
 
 If you feel that you can contribute to ""BioSmalltalk"" development, please do not hesitate to contact through the available communities.
 
+!!! Communities
+
+- BioSmalltalk mailing-list for Users: *https://groups.google.com/forum/?hl=es#!forum/biosmalltalk-users*
+- StackOverflow : *https://stackoverflow.com/questions/tagged/smalltalk*
+- Pharo Discord channel: *http://discord.gg/Sj2rhxn*
+- Pharo mailing-list: *http://lists.pharo.org/mailman/listinfo/pharo-users_lists.pharo.org*
+
 !!! Installation
 
 You can download the latest release of BioSmalltalk at *http://biosmalltalk.github.io/web/*
-BioSmalltalk is currently implemented in Pharo, a Smalltalk dialect. It is distributed in several forms depending of the target platform:
+BioSmalltalk is currently implemented in *Pharo>http://pharo.org/*, a Smalltalk dialect. It is distributed in several forms depending of the target platform:
 
 - For Microsoft Windows as a .exe installer.
 - For Mac/OS X as a compressed ZIP file.

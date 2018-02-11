@@ -1,5 +1,7 @@
 !! Graphics
 
+!!! Introduction
+
 Graphics are built and rendered using the Roassal agile visualization engine *http://agilevisualization.com/*, which is already installed in the BioPharo distribution. The Roassal engine includes a large set of examples using short Smalltalk expressions.
 
 !!! DotPlots
@@ -24,18 +26,14 @@ BioRTDotPlot
 	open.
 ]]]
 
-
 "Drawing a 2D DotPlot for single analysis (identify repeats in a sequence)"
 [[[
 BioRTDotPlot
-        sequence: BioSequence atRandom;
-        window: 3;
-        threshold: 2;
-        open.
+	sequence: BioSequence atRandom;
+	window: 3;
+	threshold: 2;
 	open.
 ]]]
-
-
 
 !!! Bar Charts
 
@@ -55,11 +53,13 @@ Histograms are frequently used to get an overview of quantitative distributions.
 	color: Color red
 ]]]
 
-+Plot of a FASTA histogram.>file://figures/fasta_histogram_1.png|width=60|label=FASTAHistogram+
+Figure *@fig:fastaHistogram*.
+
++Plot of a FASTA histogram.>file://figures/fasta_histogram_1.png|width=60|label=fig:fastaHistogram+
 
 !!! Scatterplots
 
-The following snippet parses and plot a scatterplot of expected versus observed heterozygosity from a Hardy-Weinberg equilibrium exact test statistic report (produced by PLINK's --hardy option):
+The following snippet parses and plot a scatterplot of expected versus observed heterozygosity from a Hardy-Weinberg equilibrium exact test statistic report (produced by PLINK's ""hardy"" option):
 
 [[[
 (BioPLINKFormatter new
@@ -70,7 +70,7 @@ Expected versus Observed Heterozigocity (1000 Genomes Project)';
 
 +Scatterplot of a Hardy-Weinberg test.>file://figures/hwe_scatterplot_1.png|width=80|label=HWEScatterplot+
 
-Similarily, a method-of-moments F coefficient estimates (produced by PLINK's --het option)  plot can be produced in the following way:
+Similarily, a "method of moments" F coefficient estimates (produced by PLINK's ""het"" option) plot can be produced in the following way:
 
 [[[
 BioPLINKFormatter new plotFE: 'sample.het' asBioTestFileReference.
